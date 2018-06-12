@@ -1,0 +1,806 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{683FA7B6-F526-4274-80E0-2AD2D120FFD5}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AllWaifu</RootNamespace>
+    <AssemblyName>AllWaifu</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>False</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Cloudinary, Version=1.1.1.0, Culture=neutral, PublicKeyToken=c8234dc617ae7841, processorArchitecture=MSIL">
+      <HintPath>..\packages\CloudinaryDotNet.1.1.1\lib\net\net40\Cloudinary.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Nemiro.OAuth, Version=1.13.0.2828, Culture=neutral, PublicKeyToken=cb06320e362d440b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nemiro.OAuth.1.13.0\lib\net461\Nemiro.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\CloudinaryDotNet.1.1.1\lib\net\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="add_waif.html" />
+    <Content Include="AjaxHelper.asmx" />
+    <Content Include="Anime.aspx" />
+    <Content Include="App_Data\AllWaifu.mdf" />
+    <Content Include="App_Data\AllWaifu_log.ldf">
+      <DependentUpon>AllWaifu.mdf</DependentUpon>
+    </Content>
+    <Content Include="bower_components\blueimp-canvas-to-blob\.eslintrc.js" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\.gitignore" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\js\canvas-to-blob.js" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\js\canvas-to-blob.min.js" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\LICENSE.txt" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\test\index.html" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\test\test.js" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\test\vendor\chai.js" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\test\vendor\load-image-scale.js" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\test\vendor\load-image.js" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\test\vendor\mocha.css" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\test\vendor\mocha.js" />
+    <Content Include="bower_components\blueimp-file-upload\css\jquery.fileupload-noscript.css" />
+    <Content Include="bower_components\blueimp-file-upload\css\jquery.fileupload-ui-noscript.css" />
+    <Content Include="bower_components\blueimp-file-upload\css\jquery.fileupload-ui.css" />
+    <Content Include="bower_components\blueimp-file-upload\css\jquery.fileupload.css" />
+    <Content Include="bower_components\blueimp-file-upload\img\loading.gif" />
+    <Content Include="bower_components\blueimp-file-upload\img\progressbar.gif" />
+    <Content Include="bower_components\blueimp-file-upload\js\cors\jquery.postmessage-transport.js" />
+    <Content Include="bower_components\blueimp-file-upload\js\cors\jquery.xdr-transport.js" />
+    <Content Include="bower_components\blueimp-file-upload\js\jquery.fileupload-angular.js" />
+    <Content Include="bower_components\blueimp-file-upload\js\jquery.fileupload-audio.js" />
+    <Content Include="bower_components\blueimp-file-upload\js\jquery.fileupload-image.js" />
+    <Content Include="bower_components\blueimp-file-upload\js\jquery.fileupload-jquery-ui.js" />
+    <Content Include="bower_components\blueimp-file-upload\js\jquery.fileupload-process.js" />
+    <Content Include="bower_components\blueimp-file-upload\js\jquery.fileupload-ui.js" />
+    <Content Include="bower_components\blueimp-file-upload\js\jquery.fileupload-validate.js" />
+    <Content Include="bower_components\blueimp-file-upload\js\jquery.fileupload-video.js" />
+    <Content Include="bower_components\blueimp-file-upload\js\jquery.fileupload.js" />
+    <Content Include="bower_components\blueimp-file-upload\js\jquery.iframe-transport.js" />
+    <Content Include="bower_components\blueimp-file-upload\js\vendor\jquery.ui.widget.js" />
+    <Content Include="bower_components\blueimp-load-image\.eslintrc.js" />
+    <Content Include="bower_components\blueimp-load-image\.gitignore" />
+    <Content Include="bower_components\blueimp-load-image\css\demo.css" />
+    <Content Include="bower_components\blueimp-load-image\css\vendor\Jcrop.gif" />
+    <Content Include="bower_components\blueimp-load-image\css\vendor\jquery.Jcrop.css" />
+    <Content Include="bower_components\blueimp-load-image\index.html" />
+    <Content Include="bower_components\blueimp-load-image\js\demo\demo.js" />
+    <Content Include="bower_components\blueimp-load-image\js\index.js" />
+    <Content Include="bower_components\blueimp-load-image\js\load-image-exif-map.js" />
+    <Content Include="bower_components\blueimp-load-image\js\load-image-exif.js" />
+    <Content Include="bower_components\blueimp-load-image\js\load-image-fetch.js" />
+    <Content Include="bower_components\blueimp-load-image\js\load-image-meta.js" />
+    <Content Include="bower_components\blueimp-load-image\js\load-image-orientation.js" />
+    <Content Include="bower_components\blueimp-load-image\js\load-image-scale.js" />
+    <Content Include="bower_components\blueimp-load-image\js\load-image.all.min.js" />
+    <Content Include="bower_components\blueimp-load-image\js\load-image.js" />
+    <Content Include="bower_components\blueimp-load-image\js\vendor\jquery.Jcrop.js" />
+    <Content Include="bower_components\blueimp-load-image\js\vendor\jquery.js" />
+    <Content Include="bower_components\blueimp-load-image\LICENSE.txt" />
+    <Content Include="bower_components\blueimp-load-image\test\index.html" />
+    <Content Include="bower_components\blueimp-load-image\test\test.js" />
+    <Content Include="bower_components\blueimp-load-image\test\vendor\canvas-to-blob.js" />
+    <Content Include="bower_components\blueimp-load-image\test\vendor\chai.js" />
+    <Content Include="bower_components\blueimp-load-image\test\vendor\mocha.css" />
+    <Content Include="bower_components\blueimp-load-image\test\vendor\mocha.js" />
+    <Content Include="bower_components\blueimp-tmpl\.eslintrc.js" />
+    <Content Include="bower_components\blueimp-tmpl\.gitignore" />
+    <Content Include="bower_components\blueimp-tmpl\css\demo.css" />
+    <Content Include="bower_components\blueimp-tmpl\index.html" />
+    <Content Include="bower_components\blueimp-tmpl\js\compile.js" />
+    <Content Include="bower_components\blueimp-tmpl\js\demo\demo.js" />
+    <Content Include="bower_components\blueimp-tmpl\js\runtime.js" />
+    <Content Include="bower_components\blueimp-tmpl\js\tmpl.js" />
+    <Content Include="bower_components\blueimp-tmpl\js\tmpl.min.js" />
+    <Content Include="bower_components\blueimp-tmpl\LICENSE.txt" />
+    <Content Include="bower_components\blueimp-tmpl\test\index.html" />
+    <Content Include="bower_components\blueimp-tmpl\test\test.js" />
+    <Content Include="bower_components\blueimp-tmpl\test\vendor\chai.js" />
+    <Content Include="bower_components\blueimp-tmpl\test\vendor\mocha.css" />
+    <Content Include="bower_components\blueimp-tmpl\test\vendor\mocha.js" />
+    <Content Include="bower_components\chosen\chosen-sprite%402x.png" />
+    <Content Include="bower_components\chosen\chosen-sprite.png" />
+    <Content Include="bower_components\chosen\chosen.css" />
+    <Content Include="bower_components\chosen\chosen.jquery.js" />
+    <Content Include="bower_components\chosen\chosen.jquery.min.js" />
+    <Content Include="bower_components\chosen\chosen.min.css" />
+    <Content Include="bower_components\chosen\chosen.proto.js" />
+    <Content Include="bower_components\chosen\chosen.proto.min.js" />
+    <Content Include="bower_components\cloudinary-jquery\cloudinary-jquery.js" />
+    <Content Include="bower_components\cloudinary-jquery\cloudinary-jquery.min.js" />
+    <Content Include="bower_components\cloudinary\html\cloudinary_cors.html" />
+    <Content Include="bower_components\cloudinary\js\canvas-to-blob.min.js" />
+    <Content Include="bower_components\cloudinary\js\jquery.cloudinary.js" />
+    <Content Include="bower_components\cloudinary\js\load-image.all.min.js" />
+    <Content Include="bower_components\cloudinary\samples\bootstrap.html" />
+    <Content Include="bower_components\cloudinary\samples\webpack\bundle.js" />
+    <Content Include="bower_components\cloudinary\samples\webpack\index.html" />
+    <Content Include="bower_components\cloudinary\samples\webpack\index.js" />
+    <Content Include="bower_components\cloudinary\samples\webpack\webpack.config.js" />
+    <Content Include="bower_components\cloudinary\template\moment.js" />
+    <Content Include="bower_components\cloudinary\template\publish.js" />
+    <Content Include="bower_components\cloudinary\template\static\img\glyphicons-halflings-white.png" />
+    <Content Include="bower_components\cloudinary\template\static\img\glyphicons-halflings.png" />
+    <Content Include="bower_components\cloudinary\template\static\scripts\bootstrap-dropdown.js" />
+    <Content Include="bower_components\cloudinary\template\static\scripts\bootstrap-tab.js" />
+    <Content Include="bower_components\cloudinary\template\static\scripts\docstrap.lib.js" />
+    <Content Include="bower_components\cloudinary\template\static\scripts\prettify\Apache-License-2.0.txt" />
+    <Content Include="bower_components\cloudinary\template\static\scripts\prettify\jquery.min.js" />
+    <Content Include="bower_components\cloudinary\template\static\scripts\prettify\lang-css.js" />
+    <Content Include="bower_components\cloudinary\template\static\scripts\prettify\prettify.js" />
+    <Content Include="bower_components\cloudinary\template\static\scripts\sunlight.js" />
+    <Content Include="bower_components\cloudinary\template\static\scripts\toc.js" />
+    <Content Include="bower_components\cloudinary\template\static\scripts\URI.js" />
+    <Content Include="bower_components\cloudinary\template\static\styles\darkstrap.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\prettify-tomorrow.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.cerulean.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.cosmo.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.cyborg.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.darkly.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.darkstrap.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.dibs-bootstrap.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.flatly.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.journal.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.lumen.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.paper.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.readable.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.sandstone.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.simplex.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.slate.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.spacelab.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.superhero.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.united.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\site.yeti.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\sunlight.dark.css" />
+    <Content Include="bower_components\cloudinary\template\static\styles\sunlight.default.css" />
+    <Content Include="bower_components\jquery\AUTHORS.txt" />
+    <Content Include="bower_components\jquery\dist\core.js" />
+    <Content Include="bower_components\jquery\dist\jquery.js" />
+    <Content Include="bower_components\jquery\dist\jquery.min.js" />
+    <Content Include="bower_components\jquery\dist\jquery.slim.js" />
+    <Content Include="bower_components\jquery\dist\jquery.slim.min.js" />
+    <Content Include="bower_components\jquery\external\sizzle\dist\sizzle.js" />
+    <Content Include="bower_components\jquery\external\sizzle\dist\sizzle.min.js" />
+    <Content Include="bower_components\jquery\external\sizzle\LICENSE.txt" />
+    <Content Include="bower_components\jquery\LICENSE.txt" />
+    <Content Include="bower_components\jquery\src\ajax.js" />
+    <Content Include="bower_components\jquery\src\ajax\jsonp.js" />
+    <Content Include="bower_components\jquery\src\ajax\load.js" />
+    <Content Include="bower_components\jquery\src\ajax\parseXML.js" />
+    <Content Include="bower_components\jquery\src\ajax\script.js" />
+    <Content Include="bower_components\jquery\src\ajax\var\location.js" />
+    <Content Include="bower_components\jquery\src\ajax\var\nonce.js" />
+    <Content Include="bower_components\jquery\src\ajax\var\rquery.js" />
+    <Content Include="bower_components\jquery\src\ajax\xhr.js" />
+    <Content Include="bower_components\jquery\src\attributes.js" />
+    <Content Include="bower_components\jquery\src\attributes\attr.js" />
+    <Content Include="bower_components\jquery\src\attributes\classes.js" />
+    <Content Include="bower_components\jquery\src\attributes\prop.js" />
+    <Content Include="bower_components\jquery\src\attributes\support.js" />
+    <Content Include="bower_components\jquery\src\attributes\val.js" />
+    <Content Include="bower_components\jquery\src\callbacks.js" />
+    <Content Include="bower_components\jquery\src\core.js" />
+    <Content Include="bower_components\jquery\src\core\access.js" />
+    <Content Include="bower_components\jquery\src\core\camelCase.js" />
+    <Content Include="bower_components\jquery\src\core\DOMEval.js" />
+    <Content Include="bower_components\jquery\src\core\init.js" />
+    <Content Include="bower_components\jquery\src\core\nodeName.js" />
+    <Content Include="bower_components\jquery\src\core\parseHTML.js" />
+    <Content Include="bower_components\jquery\src\core\ready-no-deferred.js" />
+    <Content Include="bower_components\jquery\src\core\ready.js" />
+    <Content Include="bower_components\jquery\src\core\readyException.js" />
+    <Content Include="bower_components\jquery\src\core\stripAndCollapse.js" />
+    <Content Include="bower_components\jquery\src\core\support.js" />
+    <Content Include="bower_components\jquery\src\core\toType.js" />
+    <Content Include="bower_components\jquery\src\core\var\rsingleTag.js" />
+    <Content Include="bower_components\jquery\src\css.js" />
+    <Content Include="bower_components\jquery\src\css\addGetHookIf.js" />
+    <Content Include="bower_components\jquery\src\css\adjustCSS.js" />
+    <Content Include="bower_components\jquery\src\css\curCSS.js" />
+    <Content Include="bower_components\jquery\src\css\hiddenVisibleSelectors.js" />
+    <Content Include="bower_components\jquery\src\css\showHide.js" />
+    <Content Include="bower_components\jquery\src\css\support.js" />
+    <Content Include="bower_components\jquery\src\css\var\cssExpand.js" />
+    <Content Include="bower_components\jquery\src\css\var\getStyles.js" />
+    <Content Include="bower_components\jquery\src\css\var\isHiddenWithinTree.js" />
+    <Content Include="bower_components\jquery\src\css\var\rboxStyle.js" />
+    <Content Include="bower_components\jquery\src\css\var\rnumnonpx.js" />
+    <Content Include="bower_components\jquery\src\css\var\swap.js" />
+    <Content Include="bower_components\jquery\src\data.js" />
+    <Content Include="bower_components\jquery\src\data\Data.js" />
+    <Content Include="bower_components\jquery\src\data\var\acceptData.js" />
+    <Content Include="bower_components\jquery\src\data\var\dataPriv.js" />
+    <Content Include="bower_components\jquery\src\data\var\dataUser.js" />
+    <Content Include="bower_components\jquery\src\deferred.js" />
+    <Content Include="bower_components\jquery\src\deferred\exceptionHook.js" />
+    <Content Include="bower_components\jquery\src\deprecated.js" />
+    <Content Include="bower_components\jquery\src\dimensions.js" />
+    <Content Include="bower_components\jquery\src\effects.js" />
+    <Content Include="bower_components\jquery\src\effects\animatedSelector.js" />
+    <Content Include="bower_components\jquery\src\effects\Tween.js" />
+    <Content Include="bower_components\jquery\src\event.js" />
+    <Content Include="bower_components\jquery\src\event\ajax.js" />
+    <Content Include="bower_components\jquery\src\event\alias.js" />
+    <Content Include="bower_components\jquery\src\event\focusin.js" />
+    <Content Include="bower_components\jquery\src\event\support.js" />
+    <Content Include="bower_components\jquery\src\event\trigger.js" />
+    <Content Include="bower_components\jquery\src\exports\amd.js" />
+    <Content Include="bower_components\jquery\src\exports\global.js" />
+    <Content Include="bower_components\jquery\src\jquery.js" />
+    <Content Include="bower_components\jquery\src\manipulation.js" />
+    <Content Include="bower_components\jquery\src\manipulation\buildFragment.js" />
+    <Content Include="bower_components\jquery\src\manipulation\getAll.js" />
+    <Content Include="bower_components\jquery\src\manipulation\setGlobalEval.js" />
+    <Content Include="bower_components\jquery\src\manipulation\support.js" />
+    <Content Include="bower_components\jquery\src\manipulation\var\rcheckableType.js" />
+    <Content Include="bower_components\jquery\src\manipulation\var\rscriptType.js" />
+    <Content Include="bower_components\jquery\src\manipulation\var\rtagName.js" />
+    <Content Include="bower_components\jquery\src\manipulation\wrapMap.js" />
+    <Content Include="bower_components\jquery\src\manipulation\_evalUrl.js" />
+    <Content Include="bower_components\jquery\src\offset.js" />
+    <Content Include="bower_components\jquery\src\queue.js" />
+    <Content Include="bower_components\jquery\src\queue\delay.js" />
+    <Content Include="bower_components\jquery\src\selector-native.js" />
+    <Content Include="bower_components\jquery\src\selector-sizzle.js" />
+    <Content Include="bower_components\jquery\src\selector.js" />
+    <Content Include="bower_components\jquery\src\serialize.js" />
+    <Content Include="bower_components\jquery\src\traversing.js" />
+    <Content Include="bower_components\jquery\src\traversing\findFilter.js" />
+    <Content Include="bower_components\jquery\src\traversing\var\dir.js" />
+    <Content Include="bower_components\jquery\src\traversing\var\rneedsContext.js" />
+    <Content Include="bower_components\jquery\src\traversing\var\siblings.js" />
+    <Content Include="bower_components\jquery\src\var\arr.js" />
+    <Content Include="bower_components\jquery\src\var\class2type.js" />
+    <Content Include="bower_components\jquery\src\var\concat.js" />
+    <Content Include="bower_components\jquery\src\var\document.js" />
+    <Content Include="bower_components\jquery\src\var\documentElement.js" />
+    <Content Include="bower_components\jquery\src\var\fnToString.js" />
+    <Content Include="bower_components\jquery\src\var\getProto.js" />
+    <Content Include="bower_components\jquery\src\var\hasOwn.js" />
+    <Content Include="bower_components\jquery\src\var\indexOf.js" />
+    <Content Include="bower_components\jquery\src\var\isFunction.js" />
+    <Content Include="bower_components\jquery\src\var\isWindow.js" />
+    <Content Include="bower_components\jquery\src\var\ObjectFunctionString.js" />
+    <Content Include="bower_components\jquery\src\var\pnum.js" />
+    <Content Include="bower_components\jquery\src\var\push.js" />
+    <Content Include="bower_components\jquery\src\var\rcssNum.js" />
+    <Content Include="bower_components\jquery\src\var\rnothtmlwhite.js" />
+    <Content Include="bower_components\jquery\src\var\slice.js" />
+    <Content Include="bower_components\jquery\src\var\support.js" />
+    <Content Include="bower_components\jquery\src\var\toString.js" />
+    <Content Include="bower_components\jquery\src\wrap.js" />
+    <Content Include="bower_components\lodash\lodash.js" />
+    <Content Include="bower_components\lodash\lodash.min.js" />
+    <Content Include="Comments.ascx" />
+    <Content Include="edit.html" />
+    <Content Include="error.html" />
+    <Content Include="favicon.png" />
+    <Content Include="fonts\BravoRegular\BravoRegular.eot" />
+    <Content Include="fonts\BravoRegular\BravoRegular.ttf" />
+    <Content Include="fonts\BravoRegular\BravoRegular.woff" />
+    <Content Include="fonts\CalligraphMedium\CalligraphMedium.eot" />
+    <Content Include="fonts\CalligraphMedium\CalligraphMedium.ttf" />
+    <Content Include="fonts\CalligraphMedium\CalligraphMedium.woff" />
+    <Content Include="fonts\RobotoBold\RobotoBold.eot" />
+    <Content Include="fonts\RobotoBold\RobotoBold.ttf" />
+    <Content Include="fonts\RobotoBold\RobotoBold.woff" />
+    <Content Include="fonts\RobotoLight\RobotoLight.eot" />
+    <Content Include="fonts\RobotoLight\RobotoLight.ttf" />
+    <Content Include="fonts\RobotoLight\RobotoLight.woff" />
+    <Content Include="fonts\RobotoMedium\RobotoMedium.eot" />
+    <Content Include="fonts\RobotoMedium\RobotoMedium.ttf" />
+    <Content Include="fonts\RobotoMedium\RobotoMedium.woff" />
+    <Content Include="fonts\RobotoRegular\RobotoRegular.eot" />
+    <Content Include="fonts\RobotoRegular\RobotoRegular.ttf" />
+    <Content Include="fonts\RobotoRegular\RobotoRegular.woff" />
+    <Content Include="Global.asax" />
+    <Content Include="index.html" />
+    <Content Include="js\add_waif.js" />
+    <Content Include="js\anime.js" />
+    <Content Include="js\edit.js" />
+    <Content Include="js\profile.js" />
+    <Content Include="js\profile_comments.js" />
+    <Content Include="js\search.js" />
+    <Content Include="libs\font-awesome-4.2.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="libs\font-awesome-4.2.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="libs\font-awesome-4.2.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="libs\font-awesome-4.2.0\fonts\FontAwesome.otf" />
+    <Content Include="libs\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="libs\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="libs\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="libs\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="libs\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="AllWaifu.Master" />
+    <Content Include="Login.aspx" />
+    <Content Include="login.html" />
+    <Content Include="Logout.aspx" />
+    <Content Include="Recovery.aspx" />
+    <Content Include="TopList.ascx" />
+    <Content Include="Old_User.aspx" />
+    <Content Include="Old_Waif.aspx" />
+    <Content Include="Error.aspx" />
+    <Content Include="Edit.aspx" />
+    <Content Include="Old_Add.aspx" />
+    <Content Include="Old_Search.aspx" />
+    <Content Include="Profile.aspx" />
+    <Content Include="Search.aspx" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\.bower.json" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\.eslintignore" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\.npmignore" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\.travis.yml" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\js\canvas-to-blob.min.js.map" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\package.json" />
+    <Content Include="bower_components\blueimp-canvas-to-blob\README.md" />
+    <Content Include="bower_components\blueimp-file-upload\.bower.json" />
+    <Content Include="bower_components\blueimp-file-upload\bower.json" />
+    <Content Include="bower_components\blueimp-load-image\.bower.json" />
+    <Content Include="bower_components\blueimp-load-image\.eslintignore" />
+    <Content Include="bower_components\blueimp-load-image\.npmignore" />
+    <Content Include="bower_components\blueimp-load-image\.travis.yml" />
+    <Content Include="bower_components\blueimp-load-image\js\load-image.all.min.js.map" />
+    <Content Include="bower_components\blueimp-load-image\package.json" />
+    <Content Include="bower_components\blueimp-load-image\README.md" />
+    <Content Include="bower_components\blueimp-tmpl\.bower.json" />
+    <Content Include="bower_components\blueimp-tmpl\.eslintignore" />
+    <Content Include="bower_components\blueimp-tmpl\.npmignore" />
+    <Content Include="bower_components\blueimp-tmpl\.travis.yml" />
+    <Content Include="bower_components\blueimp-tmpl\js\tmpl.min.js.map" />
+    <Content Include="bower_components\blueimp-tmpl\package.json" />
+    <Content Include="bower_components\blueimp-tmpl\README.md" />
+    <Content Include="bower_components\chosen\.bower.json" />
+    <Content Include="bower_components\chosen\.travis.yml" />
+    <Content Include="bower_components\chosen\bower.json" />
+    <Content Include="bower_components\chosen\LICENSE.md" />
+    <Content Include="bower_components\chosen\package.json" />
+    <Content Include="bower_components\chosen\README.md" />
+    <Content Include="bower_components\cloudinary-jquery\.bower.json" />
+    <Content Include="bower_components\cloudinary-jquery\bower.json" />
+    <Content Include="bower_components\cloudinary-jquery\cloudinary-jquery.min.js.map" />
+    <Content Include="bower_components\cloudinary-jquery\LICENSE" />
+    <Content Include="bower_components\cloudinary-jquery\package.json" />
+    <Content Include="bower_components\cloudinary-jquery\README.md" />
+    <Content Include="bower_components\cloudinary\.bower.json" />
+    <Content Include="bower_components\cloudinary\bower.json" />
+    <Content Include="bower_components\cloudinary\samples\webpack\bower.json" />
+    <Content Include="bower_components\cloudinary\samples\webpack\package.json" />
+    <Content Include="bower_components\cloudinary\samples\webpack\README.md" />
+    <Content Include="bower_components\cloudinary\template\jsdoc.conf.json" />
+    <Content Include="bower_components\cloudinary\template\tmpl\augments.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\container.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\details.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\example.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\examples.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\exceptions.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\fires.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\implements.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\layout.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\mainpage.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\members.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\method.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\params.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\properties.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\returns.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\returnsHeading.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\sections.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\source.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\tutorial.tmpl" />
+    <Content Include="bower_components\cloudinary\template\tmpl\type.tmpl" />
+    <Content Include="bower_components\jquery\.bower.json" />
+    <Content Include="bower_components\jquery\bower.json" />
+    <Content Include="bower_components\jquery\dist\jquery.min.map" />
+    <Content Include="bower_components\jquery\dist\jquery.slim.min.map" />
+    <Content Include="bower_components\jquery\external\sizzle\dist\sizzle.min.map" />
+    <Content Include="bower_components\jquery\README.md" />
+    <Content Include="bower_components\jquery\src\.eslintrc.json" />
+    <Content Include="bower_components\lodash\.bower.json" />
+    <Content Include="bower_components\lodash\bower.json" />
+    <Content Include="bower_components\lodash\LICENSE" />
+    <Content Include="Add.aspx" />
+    <Content Include="News.aspx" />
+    <Content Include="Main.aspx" />
+    <Content Include="Waifu.aspx" />
+    <None Include="packages.config" />
+    <Content Include="Verbs\fonts\BravoRegular\BravoRegular.eot" />
+    <Content Include="Verbs\fonts\BravoRegular\BravoRegular.ttf" />
+    <Content Include="Verbs\fonts\BravoRegular\BravoRegular.woff" />
+    <Content Include="Verbs\fonts\CalligraphMedium\CalligraphMedium.eot" />
+    <Content Include="Verbs\fonts\CalligraphMedium\CalligraphMedium.ttf" />
+    <Content Include="Verbs\fonts\CalligraphMedium\CalligraphMedium.woff" />
+    <Content Include="Verbs\fonts\RobotoBold\RobotoBold.eot" />
+    <Content Include="Verbs\fonts\RobotoBold\RobotoBold.ttf" />
+    <Content Include="Verbs\fonts\RobotoBold\RobotoBold.woff" />
+    <Content Include="Verbs\fonts\RobotoLight\RobotoLight.eot" />
+    <Content Include="Verbs\fonts\RobotoLight\RobotoLight.ttf" />
+    <Content Include="Verbs\fonts\RobotoLight\RobotoLight.woff" />
+    <Content Include="Verbs\fonts\RobotoMedium\RobotoMedium.eot" />
+    <Content Include="Verbs\fonts\RobotoMedium\RobotoMedium.ttf" />
+    <Content Include="Verbs\fonts\RobotoMedium\RobotoMedium.woff" />
+    <Content Include="Verbs\fonts\RobotoRegular\RobotoRegular.eot" />
+    <Content Include="Verbs\fonts\RobotoRegular\RobotoRegular.ttf" />
+    <Content Include="Verbs\fonts\RobotoRegular\RobotoRegular.woff" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\fonts.css" />
+    <Content Include="css\main.css" />
+    <Content Include="css\media.css" />
+    <Content Include="css\pagination.css" />
+    <Content Include="images\aiane.jpg" />
+    <Content Include="images\bg_blue.png" />
+    <Content Include="images\bg_dark.png" />
+    <Content Include="images\haruhi.jpg" />
+    <Content Include="images\haruna.png" />
+    <Content Include="images\kuroneko.jpg" />
+    <Content Include="images\miku.jpg" />
+    <Content Include="images\momo.jpg" />
+    <Content Include="images\nagato.jpg" />
+    <Content Include="images\rem.png" />
+    <Content Include="images\shin.png" />
+    <Content Include="images\tohsaka.jpg" />
+    <Content Include="images\user.png" />
+    <Content Include="images\waif1.jpg" />
+    <Content Include="js\common.js" />
+    <Content Include="js\vk_openapi.js" />
+    <Content Include="libs\bootstrap\bootstrap-grid-3.3.1.min.css" />
+    <Content Include="libs\countdown\jquery.countdown-ru.js" />
+    <Content Include="libs\countdown\jquery.countdown.css" />
+    <Content Include="libs\countdown\jquery.countdown.min.js" />
+    <Content Include="libs\countdown\jquery.plugin.js" />
+    <Content Include="libs\fancybox\blank.gif" />
+    <Content Include="libs\fancybox\fancybox_loading%402x.gif" />
+    <Content Include="libs\fancybox\fancybox_loading.gif" />
+    <Content Include="libs\fancybox\fancybox_overlay.png" />
+    <Content Include="libs\fancybox\fancybox_sprite%402x.png" />
+    <Content Include="libs\fancybox\fancybox_sprite.png" />
+    <Content Include="libs\fancybox\helpers\fancybox_buttons.png" />
+    <Content Include="libs\fancybox\helpers\jquery.fancybox-buttons.css" />
+    <Content Include="libs\fancybox\helpers\jquery.fancybox-buttons.js" />
+    <Content Include="libs\fancybox\helpers\jquery.fancybox-media.js" />
+    <Content Include="libs\fancybox\helpers\jquery.fancybox-thumbs.css" />
+    <Content Include="libs\fancybox\helpers\jquery.fancybox-thumbs.js" />
+    <Content Include="libs\fancybox\jquery.fancybox.css" />
+    <Content Include="libs\fancybox\jquery.fancybox.js" />
+    <Content Include="libs\fancybox\jquery.fancybox.pack.js" />
+    <Content Include="libs\font-awesome-4.2.0\css\font-awesome.min.css" />
+    <Content Include="libs\font-awesome-4.2.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="libs\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="libs\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="libs\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="libs\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="libs\html5shiv\es5-shim.min.js" />
+    <Content Include="libs\html5shiv\html5shiv-printshiv.min.js" />
+    <Content Include="libs\html5shiv\html5shiv.min.js" />
+    <Content Include="libs\html5shiv\respond.min.js" />
+    <Content Include="libs\jquery-mousewheel\jquery.mousewheel.min.js" />
+    <Content Include="libs\jquery\jquery-1.11.1.min.js" />
+    <Content Include="libs\landing-nav\navigation.js" />
+    <Content Include="libs\owl-carousel\ajax-loader.gif" />
+    <Content Include="libs\owl-carousel\AjaxLoader.gif" />
+    <Content Include="libs\owl-carousel\grabbing.png" />
+    <Content Include="libs\owl-carousel\owl.carousel.css" />
+    <Content Include="libs\owl-carousel\owl.carousel.js" />
+    <Content Include="libs\owl-carousel\owl.carousel.min.css" />
+    <Content Include="libs\owl-carousel\owl.carousel.min.js" />
+    <Content Include="libs\owl-carousel\owl.theme.css" />
+    <Content Include="libs\owl-carousel\owl.theme.default.css" />
+    <Content Include="libs\owl-carousel\owl.theme.default.min.css" />
+    <Content Include="libs\owl-carousel\owl.theme.green.css" />
+    <Content Include="libs\owl-carousel\owl.theme.green.min.css" />
+    <Content Include="libs\owl-carousel\owl.transitions.css" />
+    <Content Include="libs\owl-carousel\owl.video.play.png" />
+    <Content Include="libs\respond\respond.min.js" />
+    <Content Include="libs\scrollto\jquery.scrollTo.min.js" />
+    <Content Include="libs\waypoints\waypoints-1.6.2.min.js" />
+    <Content Include="Old_MainPage.aspx" />
+    <Content Include="user.html" />
+    <Content Include="Verbs\eparse.py" />
+    <Content Include="Verbs\index.html" />
+    <Content Include="Verbs\kek.txt" />
+    <Content Include="Verbs\main.css" />
+    <Content Include="Verbs\main.js" />
+    <Content Include="waif.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AjaxHelper.asmx.cs">
+      <DependentUpon>AjaxHelper.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AllWaifu.Master.cs">
+      <DependentUpon>AllWaifu.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AllWaifu.Master.designer.cs">
+      <DependentUpon>AllWaifu.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Anime.aspx.cs">
+      <DependentUpon>Anime.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Anime.aspx.designer.cs">
+      <DependentUpon>Anime.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Comments.ascx.cs">
+      <DependentUpon>Comments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Comments.ascx.designer.cs">
+      <DependentUpon>Comments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Old_MainPage.aspx.cs">
+      <DependentUpon>Old_MainPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Old_MainPage.aspx.designer.cs">
+      <DependentUpon>Old_MainPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recovery.aspx.cs">
+      <DependentUpon>Recovery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Recovery.aspx.designer.cs">
+      <DependentUpon>Recovery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TopList.ascx.cs">
+      <DependentUpon>TopList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TopList.ascx.designer.cs">
+      <DependentUpon>TopList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Old_User.aspx.cs">
+      <DependentUpon>Old_User.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Old_User.aspx.designer.cs">
+      <DependentUpon>Old_User.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Waifu.cs" />
+    <Compile Include="Old_Waif.aspx.cs">
+      <DependentUpon>Old_Waif.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Old_Waif.aspx.designer.cs">
+      <DependentUpon>Old_Waif.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Old_Add.aspx.cs">
+      <DependentUpon>Old_Add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Old_Add.aspx.designer.cs">
+      <DependentUpon>Old_Add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Old_Search.aspx.cs">
+      <DependentUpon>Old_Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Old_Search.aspx.designer.cs">
+      <DependentUpon>Old_Search.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Search.aspx.designer.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Add.aspx.cs">
+      <DependentUpon>Add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Add.aspx.designer.cs">
+      <DependentUpon>Add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="News.aspx.cs">
+      <DependentUpon>News.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News.aspx.designer.cs">
+      <DependentUpon>News.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main.aspx.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main.aspx.designer.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Waifu.aspx.cs">
+      <DependentUpon>Waifu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Waifu.aspx.designer.cs">
+      <DependentUpon>Waifu.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="bower_components\cloudinary\types\cloudinary-core-tests.ts" />
+    <TypeScriptCompile Include="bower_components\cloudinary\types\cloudinary-core.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>25501</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:25501/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllWaifu", "AllWaifu\AllWaifu.csproj", "{683FA7B6-F526-4274-80E0-2AD2D120FFD5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{683FA7B6-F526-4274-80E0-2AD2D120FFD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683FA7B6-F526-4274-80E0-2AD2D120FFD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683FA7B6-F526-4274-80E0-2AD2D120FFD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683FA7B6-F526-4274-80E0-2AD2D120FFD5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A1050D27-CFA2-4FC4-B9AD-9BB9CB0BB995}
+	EndGlobalSection
+EndGlobal

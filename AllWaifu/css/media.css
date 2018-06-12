@@ -1,0 +1,684 @@
+/*==========  Desktop First Method  ==========*/
+@media only screen and (max-width : 2300px){
+    .mainp_news_el:nth-of-type(10)
+    {
+        display: none;
+    }
+}
+@media only screen and (max-width : 1985px){
+    .mainp_news_el:nth-of-type(9)
+    {
+        display: none;
+    }
+}
+@media only screen and (max-width : 1754px){
+    .mainp_news_el:nth-of-type(8)
+    {
+        display: none;
+    }
+}
+@media only screen and (min-width : 1900px) {
+    .search_grid
+    {
+        grid-template-columns: 6fr 1fr !important;
+    }
+}
+@media only screen and (min-height : 849px) {
+    .main_footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
+    html {
+        min-height: 100%;
+        position: relative;
+    }
+}
+@media only screen and (max-width : 1599px) {
+    .mainp_news_el:nth-of-type(6)
+    {
+        display: none;
+    }
+}
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1300px) {
+    .main_grid_anime
+    {
+        grid-template-columns: 9fr 4fr;
+        grid-template-areas: "anime_el anime_top";
+    }
+    div.text_mask {
+        width: 45%;
+        font-size: 40px;
+    }
+    .heaven_menu
+    {
+        grid-template-columns: 3fr 3fr 1fr;
+    }
+    .heaven_links
+    {
+        display: none;
+    }
+    .heaven_menu_logo_cont
+    {
+        display: none;
+    }
+    .heaven_menu
+    {
+        margin-top: 0;
+        grid-template-columns: 1fr 4fr;
+    }
+    .heaven_dropdown
+    {
+        grid-column : 2;
+    }
+    .slideout_button
+    {
+        display: block;
+    }
+    .nsearch_grid
+    {
+        grid-template-columns: 12fr 4fr;
+        grid-template-areas: "ns_els ns_side"
+                            ". ns_side"
+                            "ns_more .";
+    }
+    .nsearch_els
+    {
+        margin-left : 10px;
+    }
+    .mainpage_grid {
+        grid-template-columns: 1fr; 
+        grid-template-areas: "mainp_rand""mainp_new";
+    }
+    .mainp_new{
+        margin-top: 47px;
+    }
+    .mainp_news_el:nth-of-type(6)
+    {
+        display: initial;
+    }
+}
+
+@media only screen and (max-width : 1150px) {
+    .mainp_waif
+    {
+        grid-template-columns: 1fr;
+    }
+    .mainp_waif_side{
+        display: none;
+    }
+    .header_menu
+    {
+        grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+    }
+
+    div.cool_content {
+        display: none;
+    }
+
+    div.cool_mobile_content {
+        display: block;
+    }
+
+    div.main_grid {
+        grid-gap: 10px;
+        grid-template-columns: 1fr minmax(335px, auto) 1fr;
+        grid-template-areas: "content content content" ". auth ." "footer footer footer";
+    }
+
+    form.auth_form {
+        margin: 25px 5px 55px 5px;
+    }
+}
+
+@media only screen and (max-width : 1200px) {
+    
+    .heaven_menu_logo_cont
+    {
+        grid-template-columns: 0fr 1fr 2fr;
+    }
+    .vk_news {
+        display: none;
+    }
+    .profile_grid
+    {
+        grid-template-columns: 8fr 3fr;
+        grid-template-areas: "profile_info prof_set";
+    }
+    .profile_additional
+    {
+        grid-template-columns: 1fr 1fr;
+    }
+    .profile_description
+    {
+        grid-row: 2;
+        grid-column: 1/3;
+        margin-top: 5px;
+    }
+
+    .edit_photo_grid {
+        grid-template-columns: 2fr 2fr 1fr;
+    }
+    .waif_context .main_grid_anime
+    {
+        grid-template-columns : 1fr 8fr 1fr;
+        grid-template-areas : ". anime_el ."
+                              ". anime_top .";
+        
+    }
+    .waif_context .anime_top
+    {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        grid-gap: 5px;
+        grid-template-areas : "anime_tit vk_news"
+                              ". vk_news";
+    }
+    .waif_context .anime_top_title{
+        grid-area : anime_tit;
+    }
+    .waif_context .vk_news_anime{
+        grid-area : vk_news;
+    }
+    .nothing_found_image
+    {
+        width : 75%;
+    }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 1050px){
+    .news_grid
+    {
+        grid-template-columns: 1fr;
+        grid-template-areas: "news_add"
+                            "news_els"
+                            "news_more";
+    }
+    .news_elements
+    {
+        margin-right : 0px;
+    }
+    .news_sidebar
+    {
+        display: none;
+    }
+    .send_but_cont {
+        text-align: center;
+        grid-template-columns: 1fr;
+        grid-gap : 2px;
+    }
+
+    .send_but_cont > .field_add_but {
+        float: none;
+        width: 90%;
+    }
+}
+@media only screen and (max-width : 991px) {
+    .trumbowyg-button-group:last-of-type
+    {
+        float : none !important;
+    }
+    .waif_context .main_grid_anime
+    {
+        grid-template-columns : 1fr 12fr 1fr;
+    }
+    .edit_photo_grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .edit_login_grid {
+        grid-template-columns: 30fr 1fr;
+    }
+
+    .auth_links {
+        display: none;
+    }
+
+    .desk_menu li, .menu_el, .desk_menu a {
+        width: 100%;
+        float: none;
+        display: block;
+    }
+
+    .desk_menu, .b_search {
+        display: none;
+        font-size: 17px;
+    }
+
+    .men_s {
+        border-radius: 0;
+    }
+
+    .desk_menu li:last-of-type {
+        border-radius: 0px 0px 7px 7px;
+    }
+
+    .desk_menu li:first-of-type a {
+        border-radius: 0;
+        box-shadow: none;
+        padding: 5px 15px;
+    }
+
+    .waif_author {
+        display: none;
+    }
+
+    .xs-author {
+        display: block;
+    }
+
+    .usl_title {
+        margin-top: 0;
+        margin: 0 15px;
+        font-size: 24px;
+    }
+
+    .user_waif_list li:nth-child(3) {
+        display: none;
+    }
+
+    .chapter_label {
+        text-align: center;
+    }
+
+    #DesktopSort
+    {
+        display: none;
+    }
+    .search_grid
+    {
+        grid-template-columns: 1fr !important;
+    }
+    .main_grid_anime
+    {
+        grid-template-columns: 6fr 4fr;
+    }
+    .profile_grid
+    {
+        grid-template-columns: 1fr;
+        grid-template-areas: "profile_info";
+    }
+    .profile_settings
+    {
+        display : none;
+    }
+    .profile_anime_popup
+    {
+        grid-template-columns: 1fr 4fr 1fr;
+    }
+    .nsearch_grid
+    {
+        grid-template-columns: 1fr 12fr 1fr;
+        grid-template-areas: ". ns_els ."
+                               ". ns_more .";
+    }
+    .nsearch_els
+    {
+        margin-left : 0px;
+    }     
+    .desc_field_title .field_input
+    {
+        height : 1.8em;
+    }                    
+    #SaveAll {
+        grid-column: 2/4;
+    }
+}
+@media only screen and (max-width: 940px){
+    .header_menu
+    {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas : "h_logo h_links h_login";
+    }
+}
+/* Small Devices, Tablets */
+@media only screen and (max-width : 767px) {
+    .main_grid_anime
+    {
+        grid-template-columns: 1fr 6fr 1fr;
+        grid-template-areas: ". anime_el .";
+    }
+    .anime_top, .vk_news_anime
+    {
+        display: none;
+    }
+    .waif_context .anime_top
+    {
+        grid-template-columns: 1fr;
+        grid-template-areas : "anime_tit"
+    }
+    .search_els_anime
+    {
+        grid-template-columns: 1fr;
+    }
+    .search_els
+    {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    .main_menu
+    {
+        margin-bottom : 15px;
+    }
+    .error_img {
+        width: 40%;
+    }
+    .main_menu {
+        margin-bottom: 15px;
+    }
+
+    .over_text {
+        padding: 5px 10px;
+    }
+
+    .edit_pass_grid {
+        grid-template-columns: 1fr 4fr 1fr;
+        grid-gap: 10px;
+    }
+
+    .edit_pass_el {
+        /*grid-column: 1;*/
+    }
+
+    .edit_grid {
+        grid-template-columns: 1fr;
+    }
+
+    .edit_photo_grid {
+        grid-template-columns: 1fr 5fr 5fr 1fr;
+    }
+
+    .edit_img {
+        grid-column: 2 / 2;
+    }
+    .nsearch_els{
+        grid-template-columns: 1fr 1fr;
+    }
+    .nothing_found
+    {
+        grid-column : 1/3;
+    }
+    .nsearch_els .type_title {
+        grid-column: 1/3;
+    }
+    .nsearch_el:nth-of-type(4)
+    {
+        margin-top : 0px;
+    }
+}
+@media only screen and (max-width : 650px){
+    .news_grid_container
+    {
+        grid-template-columns: 1fr;
+        grid-template-areas: "news_grid";
+        padding: 5px;
+    }
+    .desc_select_title
+    {
+        display : none;
+    }
+    .sub_desc_title
+    {
+        grid-template-columns: 1fr 9fr;
+    }
+    
+    .addwaif_grid {
+        margin: 10px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas: "addwaif";
+    }
+    .waif_context .main_grid_anime
+    {
+        grid-template-columns : 1fr 20fr 1fr;
+    }
+    .main_grid_anime
+    {
+        grid-template-columns: 1fr;
+        grid-template-areas: "anime_el";
+    }
+    .anime_img_info
+    {
+        grid-template-columns: 1fr;
+        grid-template-areas : "anime_title";
+    }
+    .add_info
+    {
+        display: none;
+    }
+    .profile_info_list
+    {
+        grid-template-columns: 1fr 1fr;
+    }
+    .profile_additional
+    {
+        grid-template-columns: 1fr;
+    }
+    .profile_description
+    {
+        grid-column: 1;
+        grid-row : 3;
+    }
+    .profile_info_content
+    {
+        grid-template-columns: 1fr;
+        align-items: center;
+        justify-items: center;
+    }
+    .mainp_random .anime_top_list {
+        grid-template-columns: 1fr;
+    }
+    .mainp_random .anime_top_els:nth-of-type(even){
+        display: none;
+    }
+    .nothing_found_image
+    {
+        width : 100%;
+    }
+}
+@media only screen and (max-width: 600px){
+    .header_links
+    {
+        display: none;
+    }
+    .header_menu
+    {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "h_logo h_login";
+    }
+}
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+    .waif_context .main_grid_anime
+    {
+        grid-template-columns : 1fr;
+        grid-template-areas: "anime_el" "anime_top";
+    }
+    .waif_context .anime_top
+    {
+        grid-template-columns: 1fr;
+    }
+    .waif_context .anime_top,
+    .waif_context .anime_el
+    {
+        margin: 10px 5px;
+    }
+    .profile_anime_popup
+    {
+        grid-template-columns: 1fr 12fr 1fr;
+    }
+    .search_els
+    {
+        grid-template-columns: 1fr !important;
+    }
+    .header_logo_text
+    {
+        display: none;
+    }
+    .empty_block_image {
+        width: 60%;
+    }
+    .error_img {
+        width: 80%;
+    }
+    .edit_custom_grid {
+        grid-template-areas: "custom_desc custom_desc" "custom_name custom_name" "custom_url custom_url" ". save_butt"
+    }
+
+    .edit_pass_grid {
+        grid-template-columns: 1fr 10fr 1fr;
+    }
+    .edit_photo_grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .edit_img {
+        grid-column: 1 / 1;
+    }
+
+    .col-md-9, .col-md-3 {
+        padding: 0px 0px;
+    }
+
+    .user_inf_titles {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .over_text {
+        display: none;
+    }
+
+    .desk_menu li:first-of-type a {
+        padding: 5px 5px;
+    }
+
+    .waif_img_cont {
+        display: none;
+    }
+
+    .mobile_waif_title {
+        color: #fff;
+        display: block;
+    }
+
+    .waif_follow {
+        color: #fff;
+        float: none;
+        position: inherit;
+        text-align: center;
+    }
+
+    .waif_follow_but {
+        font-size: 20px;
+    }
+
+        .waif_follow_but:hover {
+            font-size: 20px;
+        }
+
+        .waif_follow_but:not(:hover) {
+            font-size: 20px;
+        }
+
+    .col-xs-6.waif_rec {
+        width: 100%;
+    }
+
+
+    .add_but_cont {
+        text-align: center;
+    }
+
+        .add_but_cont > .field_add_but {
+            width: 90%;
+            float: none;
+            margin-right: 0px;
+        }
+
+    .desc_field_content > .delete_el_but {
+        right: -4px;
+    }
+    .nsearch_els{
+        grid-template-columns: 1fr;
+    }
+    .nothing_found
+    {
+        grid-column : 1/2;
+    }
+    .nsearch_els .type_title {
+        grid-column: 1/2;
+    }
+    .nsearch_el:nth-of-type(3)
+    {
+        margin-top : 0px;
+    }
+    #SaveAll {
+        grid-column: 1/4;
+    }
+}
+
+@media only screen and (max-width : 380px) {
+    .edit_img {
+        grid-column: 2 / 2;
+    }
+
+    .edit_photo_grid {
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+
+    .edit_img_func {
+        grid-column: 1 / -1;
+    }
+    .norm_footer
+    {
+        grid-template-columns: none;
+    }
+    .footer_el:nth-of-type(3)
+    {
+        display: none;
+    }
+    .footer_el:nth-of-type(2)
+    {
+        display: none;
+    }
+}
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px) {
+    .norm_footer
+    {
+        display: none !important;
+    }
+}
+
+
+/*==========  Mobile First Method  ==========*/
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
+    
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+    .sub_logo_min {
+        display: none;
+    }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+    .desk_menu {
+        display: block !important;
+    }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+}

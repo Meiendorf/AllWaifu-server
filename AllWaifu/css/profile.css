@@ -1,0 +1,195 @@
+body, #main_el {
+    background-color: #E2E2E2 !important;
+    background-image: none !important;
+}
+
+.profile_grid
+{
+    margin-top : 10px;
+    display: grid;
+    grid-template-columns: 1fr 12fr 3fr 1fr;
+    width: 100%;
+    grid-template-areas: ". profile_info prof_set .";
+}
+.profile_settings
+{
+    grid-area: prof_set;
+    margin-left : 0px;
+    margin-right : 20px;
+}
+.profile_settings i
+{
+    height: 20px;
+    width : 20px;
+}
+.profile_settings_els
+{
+    background-color: #fff;
+    color : #333;
+    display: grid;
+    font-size : 18px;
+    padding: 5px;
+}
+.profile_settings_el
+{
+    border-color : #E2E2E2;
+    border-style: solid;
+    padding: 4px;
+    border-width : 1px 1px 0px 1px;
+    transition : 0.3s;
+}
+.profile_settings_el:hover
+{
+    background-color: #E2E2E2;
+    transition : 0.3s;
+    cursor : pointer;
+}
+.profile_settings_el:last-of-type
+{
+    border-width: 1px 1px 1px 1px;
+}
+.profile_info
+{
+    grid-area : profile_info;
+    margin : 0px 20px;
+    display: grid;
+}
+.profile_info_content
+{
+    display: grid;
+    grid-template-columns: 25% 3fr;
+    background-color: #fff;
+    color : #333333;
+}
+.profile_image
+{
+    max-width: 200px;
+}
+.profile_info_el a
+{
+    margin-bottom : 2px;
+}
+.profile_info_el a span
+{
+    color : #29A4D0 !important;
+}
+.profile_info_list
+{
+    display: grid;
+    align-items: center;
+    font-size: 16px;
+    padding-left : 5px;
+}
+.profile_additional
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 10px;
+    margin-top : 10px;
+    padding-bottom: 5px;
+}
+.transparent_5p
+{
+    background: #E2E2E2;
+    height: 5px;
+    width: 100%;
+}
+.profile_description
+{
+    background-color: #fff;
+    color : #333333;
+    font-size : 20px;
+}
+.profile_description_text
+{
+    width: 100%;
+    font-family : "RubikRegular";
+    font-size : 16px;
+    padding: 5px 3px;
+}
+.link_type_title span
+{
+    color : #fff !important;
+    font-weight : normal;
+}
+.link_type_title span:before
+{
+    top : 107% !important;
+}
+.link_type_title:hover
+{
+    padding-bottom: 0px;
+    cursor: pointer;
+}
+.link_type_title:hover span{
+    -webkit-transform: translateY(-107%) !important;
+    -moz-transform: translateY(-107%) !important;
+    transform: translateY(-107%) !important;
+}
+a.link_type_title
+{
+    padding : 6px;
+    display: block;
+}
+.link_type_title:hover span
+{
+    padding-bottom: 6px !important;
+}
+.waif_inp
+{
+    background-color: #fff;
+}
+.anime_desc_title
+{
+    background-color: #fff;
+}
+.anime_top_els:last-of-type
+{
+    margin-bottom: 0px;
+}
+.profile_anime_popup
+{
+    width:100%;
+    min-height:100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow:hidden;
+    position:fixed;
+    top:0px;
+    z-index : 999;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: ". p_box .";
+    align-items : center;
+}
+.profile_anime_cont
+{
+    display: none;
+}
+.profile_popup_box
+{
+    grid-area : p_box;
+    margin : auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    font-size : 20px;
+}
+.profile_popup_content
+{
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 3px;
+    grid-gap : 3px;
+    background-color: #fff;
+}
+.profile_popup_box textarea
+{
+    width : 100%;
+}
+.profile_popup_thumb
+{
+    
+}
+.anime_watch
+{
+    color : #fff;
+}
