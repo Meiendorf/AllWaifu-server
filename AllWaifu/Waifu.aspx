@@ -139,7 +139,6 @@
     </section>
 </asp:Content>
 <asp:Content ID="Content6" ContentPlaceHolderID="FooterContentPlaceholder" runat="server">
-    <script src="https://unpkg.com/tippy.js@2.5.2/dist/tippy.all.min.js"></script>
     <script src="/js/profile_comments.js?<%=DateTime.Now.Ticks.ToString() %>"></script>
     <script>
         userId = "<%=UserId%>";

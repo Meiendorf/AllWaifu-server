@@ -37,7 +37,7 @@ namespace AllWaifu
 
         public void GetPageFromDB(int pageNum)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["AllWaifu"].ConnectionString;
+            string connectionString = Global.WaifString;
             _connection = new SqlConnection(connectionString);
             _connection.Open();
 

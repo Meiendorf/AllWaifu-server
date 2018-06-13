@@ -269,7 +269,6 @@
     <script src="/bower_components/blueimp-file-upload/js/jquery.fileupload.js" type="text/javascript"></script>
     <script src="/bower_components/cloudinary-jquery/cloudinary-jquery.js" type="text/javascript"></script>
     <script src="https://widget.cloudinary.com/global/all.js" type="text/javascript"></script>
-    <script src="https://unpkg.com/tippy.js@2.5.2/dist/tippy.all.min.js"></script>
     <script>
         heart = "<%if (Role != "User") { Response.Write("underblade"); }%>";
         pageId = "<%=user.Login%>";

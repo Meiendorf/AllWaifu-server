@@ -41,7 +41,7 @@ namespace AllWaifu
         public bool IsLoginInBase(string Login)
         {
             bool result = false;
-            _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AllWaifu"].ConnectionString);
+            _connection = new SqlConnection(Global.WaifString);
             _connection.Open();
             try
             {
@@ -195,7 +195,7 @@ namespace AllWaifu
         [WebMethod]
         public void AddUrlToCache(string url)
         {
-            _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AllWaifu"].ConnectionString);
+            _connection = new SqlConnection(Global.WaifString);
             using (_connection)
             {
                 _connection.Open();

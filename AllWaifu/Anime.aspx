@@ -182,7 +182,6 @@
     <% if(IsAdmin){%>
     <script src="/js/anime.js"></script>
     <%} %>
-    <script src="https://unpkg.com/tippy.js@2.5.2/dist/tippy.all.min.js"></script>
     <script src="/js/profile_comments.js?<%=DateTime.Now.Ticks.ToString() %>"></script>
     <script src="/js/vk_openapi.js"></script>
     <script type="text/javascript">
