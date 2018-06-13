@@ -200,7 +200,7 @@ namespace AllWaifu
             {
                 return;
             }
-            SqlConnection _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AllWaifu"].ConnectionString);
+            SqlConnection _connection = new SqlConnection(Global.WaifString);
             try
             {
                 _connection.Open();
@@ -231,7 +231,7 @@ namespace AllWaifu
             {
                 return;
             }
-            SqlConnection _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AllWaifu"].ConnectionString);
+            SqlConnection _connection = new SqlConnection(Global.WaifString);
             _connection.Open();
             try
             {
@@ -346,7 +346,7 @@ namespace AllWaifu
             {
                 return;
             }
-            SqlConnection _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AllWaifu"].ConnectionString);
+            SqlConnection _connection = new SqlConnection(Global.WaifString);
             using (_connection)
             {
                 _connection.Open();
@@ -799,7 +799,7 @@ namespace AllWaifu
             }
             if (Membership.GetUser(login)==null)
             {
-                var _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AllWaifu"].ConnectionString);
+                var _connection = new SqlConnection(Global.WaifString);
                 _connection.Open();
                 try
                 {
@@ -915,7 +915,7 @@ namespace AllWaifu
         }
         public static void Simple_Change(SqlCommand cmd)
         {
-            var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AllWaifu"].ConnectionString);
+            var connection = new SqlConnection(Global.WaifString);
             connection.Open();
             cmd.Connection = connection;
             try
@@ -969,7 +969,7 @@ namespace AllWaifu
         }
         public void GetUserFromUsers(string id)
         {
-            SqlConnection _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AllWaifu"].ConnectionString);
+            SqlConnection _connection = new SqlConnection(Global.WaifString);
             _connection.Open();
             try
             {

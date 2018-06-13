@@ -113,7 +113,7 @@ namespace AllWaifu
         
         public void CreateWaifuUser(string login, object image=null, object url=null, object name=null)
         {
-            SqlConnection _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AllWaifu"].ConnectionString);
+            SqlConnection _connection = new SqlConnection(Global.WaifString);
             _connection.Open();
             try
             {
@@ -134,7 +134,7 @@ namespace AllWaifu
         }
         public static void DeleteUserFromBase(string Login)
         {
-            SqlConnection _connection = new SqlConnection(ConfigurationManager.ConnectionStrings["AllWaifu"].ConnectionString);
+            SqlConnection _connection = new SqlConnection(Global.WaifString);
             _connection.Open();
             try
             {
