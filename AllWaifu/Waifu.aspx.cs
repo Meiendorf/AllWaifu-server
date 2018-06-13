@@ -19,6 +19,7 @@ namespace AllWaifu
         public string UserRole { get; set; }
         public bool IsAuthenticated { get; set; } = false;
         public string UserName { get; set; } = "";
+        public string UserId { get; set; } = "";
 
         public int CurrentElement { get; set; } = 0;
         public List<LightElement> TopPopWaif = new List<LightElement>();
@@ -48,6 +49,7 @@ namespace AllWaifu
                     else
                     {
                         UserName = Master.user.Login;
+                        UserId = Master.user.Id;
                         UserRole = Master.user.Role;
                     }
                 }
@@ -122,8 +124,6 @@ namespace AllWaifu
                         }
                     }
                 }
-                CommentsBlock.Data = PageWaif.Comments;
-          
                 var redacted = PageWaif.Chapters.Select(x =>
                 {
                     x.Elements = x.Elements.Select(y => 

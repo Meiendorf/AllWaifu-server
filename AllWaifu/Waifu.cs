@@ -702,8 +702,8 @@ namespace AllWaifu
     public class UserLight
     {
         public string Id { get; protected set; } = "-1";
-        public string Login { get; protected set; }
-        public string Image { get; protected set; }
+        public string Login { get; protected set; } = "";
+        public string Image { get; protected set; } = "";
 
         public UserLight()
         {
@@ -711,22 +711,24 @@ namespace AllWaifu
 
         public UserLight(string login)
         {
-            SqlConnection _connecton = new SqlConnection(ConfigurationManager.ConnectionStrings["AllWaifu"].ConnectionString);
-            _connecton.Open();
+            SqlConnection _connection = new SqlConnection(Global.WaifString);
+            _connection.Open();
             try
             {
-                SqlCommand cmd = new SqlCommand("SELECT Id, Image FROM USERS WHERE Name=@Login", _connecton);
+                SqlCommand cmd = new SqlCommand("SELECT Id, Image FROM Users WHERE Name=@Login", _connection);
                 cmd.Parameters.AddWithValue("Login", login);
                 var rb = cmd.ExecuteReader();
-                rb.Read();
-                Id = rb["Id"].ToString();
-                Image = rb["Image"].ToString();
-                Login = login;
+                if (rb.Read())
+                {
+                    Id = rb["Id"].ToString();
+                    Image = rb["Image"].ToString();
+                    Login = login;
+                }
                 rb.Close();
             }
             finally
             {
-                _connecton.Close();
+                _connection.Close();
             }
         }
         public void LoadById(string id)

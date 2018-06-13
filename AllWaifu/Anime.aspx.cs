@@ -17,6 +17,8 @@ namespace AllWaifu
         public List<Comment> Comments { get; set; } = new List<Comment>();
         public List<WaifuLight> Waifs { get; set; } = new List<WaifuLight>();
         public bool IsAdmin { get; set; } = false;
+        public string UserId { get; set; } = "";
+        public string UserRole { get; set; } = "User";
         public SqlConnection _connection { get; set; } = null;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -49,7 +51,9 @@ namespace AllWaifu
                     (Master as AllWaifu).user = new UserFull(Membership.GetUser());
                 }
                 string role = (Master as AllWaifu).user.Role;
-                if (role.ToLower() == "admin" || role.ToLower() == "ghost writer")
+                UserRole = role;
+                UserId = (Master as AllWaifu).user.Id;
+                if (role.ToLower() == "admin" || role.ToLower() == "creator")
                 {
                     IsAdmin = true;
                 }
@@ -134,7 +138,6 @@ namespace AllWaifu
         }
         public void BindAll()
         {
-            CommentsBlock.Data = Comments;
             WaifsRepeater.DataSource = Waifs;
             TopViewsControl.Data = TopViewed;
             TopPersControl.Data = TopPers;

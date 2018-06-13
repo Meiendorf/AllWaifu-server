@@ -95,25 +95,9 @@
                     </button>
                 </div>
             </div>
-            <div class="anime_comments">
-                <div class="anime_desc_title">
-                    Комментарии
+            <div id="CommentsBlock">
+
                 </div>
-                <div class="waif_inp">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <textarea rows="1" placeholder="Текст комментария"
-                                name="wcomments" id="wcomments"></textarea>
-                        </div>
-                        <div class="col-md-2" style="margin-top : 5px">
-                            <button class="send_min_but" style="height: 31px;">
-                                Отправить
-                            </button>
-                        </div>
-                        <uc1:Comments ID="CommentsBlock" runat="server" />
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="anime_top">
             <div class="anime_top_title">
@@ -198,9 +182,18 @@
     <% if(IsAdmin){%>
     <script src="/js/anime.js"></script>
     <%} %>
+    <script src="https://unpkg.com/tippy.js@2.5.2/dist/tippy.all.min.js"></script>
+    <script src="/js/profile_comments.js?<%=DateTime.Now.Ticks.ToString() %>"></script>
     <script src="/js/vk_openapi.js"></script>
     <script type="text/javascript">
         anime_id = <%=PageAnim.Id%>;
+        userId = "<%=UserId%>";
+        $("#CommentsBlock").comments("init", {
+            "type": "anime",
+            "id": anime_id,
+            "username": userId,
+            "heart": "<%if (UserRole != "User") { Response.Write("underblade"); }%>"
+        });
         VK.Widgets.Group("vk_groups", { mode: 4, width: "auto", wide: 1, height: "400" }, 155417759);
 	</script>
 </asp:Content>

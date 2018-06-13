@@ -378,8 +378,14 @@ namespace AllWaifu
                     cmd.Parameters.AddWithValue("Id", id);
                     using( var rd = cmd.ExecuteReader())
                     {
-                        rd.Read();
-                        result = new Comment(rd);
+                        if (rd.Read())
+                        {
+                            result = new Comment(rd);
+                        }
+                        else
+                        {
+                            return "";
+                        }
                     }
 
                 }
@@ -387,7 +393,7 @@ namespace AllWaifu
             return new JavaScriptSerializer().Serialize(result);
         }
         [WebMethod]
-        public bool PostComment(string text, string type, string userId, string id)
+        public bool PostComment(string text, string type, string userFrom, string id)
         {
             var table = ReaderHelper.GetCommentsTable(type);
             if(table == "")
@@ -399,7 +405,7 @@ namespace AllWaifu
                 _connection.Open();
                 using (var cmd = new SqlCommand("SELECT Name FROM Users WHERE Id=@Id", _connection))
                 {
-                    cmd.Parameters.AddWithValue("Id", userId);
+                    cmd.Parameters.AddWithValue("Id", userFrom);
                     if(String.IsNullOrEmpty(cmd.ExecuteScalar().ToString()))
                     {
                         return false;
@@ -408,7 +414,7 @@ namespace AllWaifu
                 using (var cmd = new SqlCommand("INSERT INTO " + table + " VALUES(@UserId, @Id, @Text, " +
                                                 "GETDATE())", _connection))
                 {
-                    cmd.Parameters.AddWithValue("UserId", userId);
+                    cmd.Parameters.AddWithValue("UserId", userFrom);
                     cmd.Parameters.AddWithValue("Id", id);
                     cmd.Parameters.AddWithValue("Text", text);
                     cmd.ExecuteNonQuery();
@@ -431,6 +437,50 @@ namespace AllWaifu
                         cmd.ExecuteNonQuery();
                     }
                     catch { }
+                }
+            }
+        }
+        [WebMethod]
+        public void DeleteComment(int id, string authorId, string type)
+        {
+            var table = ReaderHelper.GetCommentsTable(type);
+            if(table == "")
+            {
+                return;
+            }
+            using (var _connection = new SqlConnection(Global.WaifString))
+            {
+                _connection.Open();
+                var canDelete = false;
+                if (authorId == "||")
+                {
+                    canDelete = true;
+                }
+                else
+                {
+                    using (var cmd = new SqlCommand("SELECT UserFrom FROM " + table +
+                                                    " WHERE Id=@Id", _connection))
+                    {
+                        cmd.Parameters.AddWithValue("Id", id);
+                        using (var rd = cmd.ExecuteReader())
+                        {
+                            if (rd.Read())
+                            {
+                                if (authorId == rd["UserFrom"].ToString())
+                                {
+                                    canDelete = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(canDelete)
+                {
+                    using (var cmd = new SqlCommand("DELETE FROM " + table + " WHERE Id=@Id", _connection))
+                    {
+                        cmd.Parameters.AddWithValue("Id", id);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
         }

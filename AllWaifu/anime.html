@@ -116,6 +116,11 @@
                 </a>
             </div>
             -->
+            <div class="header-notify">
+                <div class="notify-ico">
+                    <i class="fa fa-bell" aria-hidden="true"></i>
+                </div>
+            </div>
             <div class="user_dropdown">
                 <div class="user_dropdown_text" style="display: inline; margin-right: 5px;">
                     Рома
@@ -496,6 +501,19 @@
                     </div>
                     <div id="vk_groups"></div>
                 </div>
+                <div class="notify-list">
+                    <div class="notify-el">
+                        <div class="notify-image">
+                            <img src="images/araragi.png"/>
+                        </div>
+                        <div class="notify-content">
+                            Опппапапапцуацуацуа
+                        </div>
+                        <div class="notify-date">
+                            28 Май 2018 23:48:42
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -540,8 +558,10 @@
         </div>
     </footer>-->
     </main>
+    <script src="https://unpkg.com/tippy.js@2.5.2/dist/tippy.all.min.js"></script>
     <script src="js/vk_openapi.js"></script>
     <script type="text/javascript">
+
 		VK.Widgets.Group("vk_groups", {mode: 4, width: "auto", wide: 1, height: "400"}, 155417759);
 	</script>
     <script src="libs/jquery/jquery-1.11.1.min.js"></script>

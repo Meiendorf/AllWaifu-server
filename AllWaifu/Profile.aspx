@@ -8,12 +8,15 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="SlideoutPlaceHolder" runat="server">
 </asp:Content>
 <asp:Content ID="Content6" ContentPlaceHolderID="InSlideoutListPlaceHolder" runat="server">
+    <%if (Request.IsAuthenticated){ %>
     <%if (IsUserPage)
         { %>
+    <%if(Role != "User"){ %>
     <li style="border-top: 2px solid #29A4D0" onclick="$('.profile_anime_cont').fadeIn();">
         <a href="#">Добавить аниме
         </a>
     </li>
+    <%} %>
     <li>
         <a href="#">Уведомления
         </a>
@@ -41,6 +44,7 @@
         <a href="#">Прокомментировать
         </a>
     </li>
+    <%} %>
     <%} %>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="OwlPlaceHolder" runat="server">
@@ -166,43 +170,52 @@
                 МЕНЮ
             </div>
             <div class="profile_settings_els cl-effect-5">
-                <%if (IsUserPage)
-                    { %>
-                <div class="profile_settings_el">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
-                    Настройки
-                </div>
-                <div class="profile_settings_el">
-                    <i class="fa fa-bell-o" aria-hidden="true"></i>
-                    Уведомления
-                </div>
-                <div class="profile_settings_el" onclick="$('.profile_anime_cont').fadeIn();">
-                    <i class="fa fa-plus" style="padding-left: 2px" aria-hidden="true"></i>
-                    Добавить аниме
-                </div>
-                <div class="profile_settings_el">
-                    <i class="fa fa-sign-out" aria-hidden="true" style="padding-left: 2px"></i>
-                    Выход
-                </div>
-                <%}
-                    else
-                    { %>
-                <div class="profile_settings_el">
-                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                    Повысить репутацию
-                </div>
-                <div class="profile_settings_el">
-                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                    Понизить репутацию
-                </div>
-                <div class="profile_settings_el">
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                    Пожаловаться
-                </div>
-                <div class="profile_settings_el">
-                    <i class="fa fa-comment-o" aria-hidden="true"></i>
-                    Прокомментировать
-                </div>
+                <%if (Request.IsAuthenticated){ %>
+                    <%if (IsUserPage)
+                        { %>
+                    <div class="profile_settings_el">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                        Настройки
+                    </div>
+                    <div class="profile_settings_el">
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                        Уведомления
+                    </div>
+                    <% if(Role != "User"){ %>
+                    <div class="profile_settings_el" onclick="$('.profile_anime_cont').fadeIn();">
+                        <i class="fa fa-plus" style="padding-left: 2px" aria-hidden="true"></i>
+                        Добавить аниме
+                    </div>
+                    <%} %>
+                    <div class="profile_settings_el">
+                        <i class="fa fa-sign-out" aria-hidden="true" style="padding-left: 2px"></i>
+                        Выход
+                    </div>
+                    <%}
+                        else
+                        { %>
+                    <div class="profile_settings_el">
+                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                        Повысить репутацию
+                    </div>
+                    <div class="profile_settings_el">
+                        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                        Понизить репутацию
+                    </div>
+                    <div class="profile_settings_el">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        Пожаловаться
+                    </div>
+                    <div class="profile_settings_el">
+                        <i class="fa fa-comment-o" aria-hidden="true"></i>
+                        Прокомментировать
+                    </div>
+                    <%} %>
+                <%} else {%>
+                    <div class="profile_settings_el" onclick="$(location).attr('href', '/login');">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        Войти
+                    </div>
                 <%} %>
             </div>
         </div>
@@ -257,6 +270,11 @@
     <script src="/bower_components/cloudinary-jquery/cloudinary-jquery.js" type="text/javascript"></script>
     <script src="https://widget.cloudinary.com/global/all.js" type="text/javascript"></script>
     <script src="https://unpkg.com/tippy.js@2.5.2/dist/tippy.all.min.js"></script>
+    <script>
+        heart = "<%if (Role != "User") { Response.Write("underblade"); }%>";
+        pageId = "<%=user.Login%>";
+        userId = "<%=ClientId%>";
+    </script>
     <script src="/js/profile.js?<%=DateTime.Now.Ticks.ToString() %>"></script>
     <script src="/js/profile_comments.js?<%=DateTime.Now.Ticks.ToString() %>"></script>
 </asp:Content>

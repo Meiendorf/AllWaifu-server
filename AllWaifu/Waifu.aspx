@@ -106,24 +106,8 @@
                     </asp:Repeater>
                 </div>
 
-                <div class="anime_comments">
-                    <div class="anime_desc_title col-md-12">
-                        Комментарии
-                    </div>
-                    <div class="waif_inp">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <textarea rows="1" placeholder="Текст комментария"
-                                    name="wcomments" id="wcomments"></textarea>
-                            </div>
-                            <div class="col-md-2" style="margin-top: 5px">
-                                <button class="send_min_but" style="height: 31px;">
-                                    Отправить
-                                </button>
-                            </div>
-                            <uc1:Comments ID="CommentsBlock" runat="server" />
-                        </div>
-                    </div>
+                <div id="CommentsBlock">
+
                 </div>
             </div>
 
@@ -155,8 +139,21 @@
     </section>
 </asp:Content>
 <asp:Content ID="Content6" ContentPlaceHolderID="FooterContentPlaceholder" runat="server">
+    <script src="https://unpkg.com/tippy.js@2.5.2/dist/tippy.all.min.js"></script>
+    <script src="/js/profile_comments.js?<%=DateTime.Now.Ticks.ToString() %>"></script>
     <script>
-        if ("<%=IsAuthenticated%>" == "true") {
+        userId = "<%=UserId%>";
+        isAuth = "<%=IsAuthenticated%>";
+        heart = "<%if (UserRole != "User") { Response.Write("underblade"); } %>";
+
+        $("#CommentsBlock").comments("init", {
+            "type": "waifu",
+            "id": <%=PageWaif.Id%>,
+            "username": userId,
+            "heart": heart
+        });
+        $(".anime_comments")[0].classList.add("col-md-12");
+        if (isAuth == "True") {
             var userName = "<%=UserName%>";
             var waifuId = "<%=PageWaif.Id%>";
             var isFav = "<%=IsFavForCurrentUser%>";

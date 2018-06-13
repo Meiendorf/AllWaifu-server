@@ -14,6 +14,12 @@
         $(".profile_popup_thumb img")[0].src = data[0].url;
         AddUrlToCache(data[0].url);
     });
+    $("#CommentsBlock").comments("init", {
+        "type": "user",
+        "id": pageId,
+        "username": userId,
+        "heart": heart
+    });
 });
 
 ned_close = true;

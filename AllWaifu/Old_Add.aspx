@@ -199,7 +199,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 add_but_cont send_but_cont">
-                            <% if ((Master.user.Role == "Admin" || Master.user.Role == "Ghost Writer") && (Confirmed != "1"))
+                            <% if ((Master.user.Role == "Admin" || Master.user.Role == "Creator") && (Confirmed != "1"))
                                 { %>
                                 <input type="submit" class="comm_but field_add_but" onclick="if (checkFormValidation()) { acceptWaifu(); }" runat="server" value="Подтвердить" id="Admin_Button" onserverclick="ConfirmAdmin_ServerClick"/>
                             <%} else { %>

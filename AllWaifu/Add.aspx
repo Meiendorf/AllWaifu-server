@@ -213,7 +213,7 @@
                     </div>
                 </div>
                 <div class="col-md-12 add_but_cont send_but_cont">
-                    <% if ((((AllWaifu.AllWaifu)Master).user.Role == "Admin" || ((AllWaifu.AllWaifu)Master).user.Role == "Ghost Writer") && (Confirmed != "1"))
+                    <% if ((((AllWaifu.AllWaifu)Master).user.Role == "Admin" || ((AllWaifu.AllWaifu)Master).user.Role == "Creator") && (Confirmed != "1"))
                     { %>
                        <div class="anime_watch">
                            <input type="submit" class="field_add_but" style="background-color: #63D795"  onclick="if (checkFormValidation()) { acceptWaifu(); }" runat="server" value="Подтвердить" id="_Admin_Button" onserverclick="ConfirmAdmin_ServerClick" />

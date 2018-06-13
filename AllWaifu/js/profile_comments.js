@@ -13,10 +13,11 @@
             this.username = '';
             this.replyTo = '';
             this.replyId = '';
+            this.monogatari = '';
         }
 
         static get commentsHtml() {
-            return ' <div class="anime_comments comments_container"> <div class="anime_desc_title"> Комментарии </div> <div class="profile_inp"> </div> <div class="waif_inp"> <div class="reply_box" style="display: none"> <div class="reply_box_to"> Ответ @shinigami_shin </div> <div class="reply_delete_el_but" id="HideReply"> <i class="fa fa-times" aria-hidden="true"></i> </div> </div> <div class="comment_textbox"> <textarea rows="3" placeholder="Текст комментария" class="comment_inp" id="wcomments"></textarea> </div> <div class="comment_submit"> <button type="button" class="send_min_but comment_send_but"> Отправить </button> </div> </div> <div class="comment_list cl-effect-5"> <div class="comment_el"> <div class="comment_img"> <a href="#"> <img src="images/haruna.png"> </a> </div> <div class="comment_name"> <a href="#"> Рома Мельник </a> </div> <div class="comment_additional"> <div class="comment_date"> 28 Май 2018 23:48:42 </div> <div class="comment_reply"> <a>Ответить</a> </div> <div class="comment_complain"> <a>Пожаловаться</a> </div> </div> <div class="comment_text"> </div> </div> </div> <div class="comment_more"> <button type="button" class="infinite_scroll_but search_sort_but" id="AddMore"> <i class="fa fa-plus"></i> <div> Загрузить еще </div> </button> </div> </div>';
+            return ' <div class="anime_comments comments_container"> <div class="anime_desc_title"> Комментарии </div> <div class="profile_inp"> </div> <div class="waif_inp"> <div> <div class="reply_box" style="display: none"> <div class="reply_box_to"> Ответ @shinigami_shin </div> <div class="reply_delete_el_but" id="HideReply"> <i class="fa fa-times" aria-hidden="true"></i> </div> </div> </div> <div class="comment_textbox"> <textarea rows="3" placeholder="Текст комментария" class="comment_inp" id="wcomments"></textarea> </div> <div class="comment_submit"> <button type="button" class="send_min_but comment_send_but"> Отправить </button> </div> </div> <div class="comment_list cl-effect-5"> <div class="comment_el"> <div class="comment_img"> <a href="#"> <img/> </a> </div> <div class="comment_name"> <a href="#"> Рома Мельник </a> </div> <div class="comment_additional"> <div class="comment_date"> 28 Май 2018 23:48:42 </div> <div class="comment_reply"> <a>Ответить</a> </div> <div class="comment_complain"> <a>Пожаловаться</a> </div> </div> <div class="comment_text"> </div>  <div class="delete_el_but"><i class="fa fa-times" aria-hidden="true"></i></div> </div> </div> <div class="comment_more"> <button type="button" class="infinite_scroll_but search_sort_but" id="AddMore"> <i class="fa fa-plus"></i> <div> Загрузить еще </div> </button> </div> </div>';
         }
         static get notFoundHtml() {
             return '<div class="empty_block"> <div class="anime_desc_title"> Здесь пусто! </div> <img src="/images/yo.png" class="empty_block_image" alt=""> </div>';
@@ -38,17 +39,20 @@
             var settings = $.extend({
                 'type': '',
                 'id': '',
-                'username': ''
+                'username': '',
+                'heart' : '',
             }, options);
+
             var newComments = new CommentsData();
             newComments.id = settings['id'];
             newComments.type = settings['type'];
             newComments.username = settings['username'];
+            newComments.monogatari = settings['heart'];
 
             newComments.comments.find(".search_sort_but").click(methods.addContent);
             newComments.comments.find(".reply_delete_el_but").click(methods.replyCloseButtonClick);
             newComments.comments.find(".comment_send_but").click(methods.sendButtonClick);
-            if (settings['username'] == '') {
+            if (settings['username'] == '' || settings['username'] == '-1') {
                 if (newComments.comments.find(".waif_inp").length > 0) {
                     newComments.comments.find(".waif_inp")[0].remove();
                 }
@@ -60,6 +64,14 @@
             }
             this.data("commentsData", newComments);
             this.find(".search_sort_but").click();
+        },
+        deleteCommentClick: function () {
+            but = $(this);
+            AllWaifu.AjaxHelper.DeleteComment(but.data("commentId"), but.data("author"), but.data("type"),
+                function (result) { },
+                function (err) { console.log(err); },
+            );
+            but.parent().slideUp();
         },
         addContent: function () {
             var mainEl = $(this).parent().parent().parent();
@@ -73,11 +85,22 @@
                     var elements = JSON.parse(result);
                     if (elements.length == 0 && data.offset == 0) {
                         data.comments.find(".comment_more").hide();
-                        data.comments.find(".comment_list").after($(commentsData.notFoundHtml));
+                        data.comments.find(".comment_list").after($(CommentsData.notFoundHtml));
                     }
                     elements.forEach(function (el, i, elements) {
                         var formated = methods.fillTemplate(el, data.commentsEl);
                         formated.find(".comment_reply").data("dataId", mainEl[0].id);
+                        if ((data.monogatari == "underblade" || data.username == el["From"]["Id"])){
+                            formated.find(".delete_el_but").data("commentId", el["Id"]).data("type", data.type);
+                            var author = el["From"]["Id"];
+                            if (data.monogatari == "underblade") {
+                                author = "||";
+                            }
+                            formated.find(".delete_el_but").click(methods.deleteCommentClick).data("author", author);
+                        }
+                        else {
+                            formated.find(".delete_el_but").remove();
+                        }
                         data.comments.find(".comment_list").append(formated);
                     });
                     data.offset += elements.length;
@@ -105,18 +128,30 @@
             th._tippy.show();
             AllWaifu.AjaxHelper.GetCommentById(type, id,
                 function (result) {
+                    $(th).data("replyActivated", true);
+                    if (result == "") {
+                        th._tippy.destroy();
+                        th.title = "Комментарий удален";
+                        tippy(th,
+                            {
+                                interactive: 'true',
+                                theme: 'light'
+                            });
+                        th._tippy.show();
+                        return;
+                    }
                     var el = JSON.parse(result);
                     var comment = methods.fillTemplate(el, $(th).parent().parent());
+                    comment.find(".delete_el_but").remove();
                     var mainId = $(th).parent().parent().find(".comment_reply").data("dataId");
                     comment.find(".comment_reply").data("dataId", mainId);
-                    th._tippy.destroy();
+                    
                     tippy(th,
                         {
                             html: comment[0],
                             interactive: 'true',
                             theme: 'light'
                         });
-                    $(th).data("replyActivated", true);
                     th._tippy.show();
                 },
                 function (err) {
@@ -128,13 +163,16 @@
             var mainEl = $(this).parentsUntil(".comments_container").parent().parent();
             var data = mainEl.data("commentsData");
             var text = mainEl.find(".comment_inp")[0].value;
+            if (text == "") {
+                return;
+            }
             if(data.replyId != '' && data.replyTo != ''){
                 text = '<a onmouseover="methods.replyHover(\''+data.type+'\','+data.replyId+', this)">@'+data.replyTo+', </a>'+text;
             }
             mainEl.find(".comment_inp")[0].value = "";
             mainEl.find(".reply_delete_el_but").click();
             AllWaifu.AjaxHelper.PostComment(text, data.type, data.username, data.id,
-                function(result){console.log("Post comment "+result);},
+                function(result){},
                 function(err){console.log(err);}
             );
         },
