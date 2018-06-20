@@ -144,6 +144,8 @@
         userId = "<%=UserId%>";
         isAuth = "<%=IsAuthenticated%>";
         heart = "<%if (UserRole != "User") { Response.Write("underblade"); } %>";
+        pageReplyId = "<%=ReplyId%>";
+        pageReplyFrom = "<%=ReplyFrom%>";
 
         $("#CommentsBlock").comments("init", {
             "type": "waifu",
@@ -151,6 +153,16 @@
             "username": userId,
             "heart": heart
         });
+
+        if (pageReplyId != "") {
+            var data = $("#CommentsBlock").data("commentsData");
+            data.replyId = pageReplyId;
+            data.replyTo = pageReplyFrom;
+            $("#CommentsBlock").data("commentsData", data);
+            $("#CommentsBlock").find(".comment_inp")[0].focus();
+            $("#CommentsBlock").find(".reply_box").show().find(".reply_box_to")[0].innerText = "Ответ @" + data.replyTo;
+        }
+
         $(".anime_comments")[0].classList.add("col-md-12");
         if (isAuth == "True") {
             var userName = "<%=UserName%>";

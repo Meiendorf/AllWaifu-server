@@ -86,6 +86,11 @@ function Sort(t = "")
         case "Персонажи":
             type = "waifu";
             break;
+        case "Не принятые":
+            if (heart) {
+                type = "unconfirmed";
+            }
+            break;
         default:
             type = "all";
     }

@@ -27,7 +27,7 @@ namespace AllWaifu
             }
             if(!isOkay)
             {
-                Response.Redirect("/error/RecoveryTokenExpired");
+                Response.Redirect("/error/503");
             }
         }
 

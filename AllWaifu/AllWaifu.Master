@@ -5,16 +5,16 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>AllWaifu</title>
+    <link rel="shortcut icon" href="/images/favicon.png" />
     <meta name="description" content="" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/libs/bootstrap/bootstrap-grid-3.3.1.min.css" />
     <link rel="stylesheet" href="/libs/jqueryui/jquery-ui.min.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
-    <link rel="stylesheet" href="/css/main.css?13" />
+    <link rel="stylesheet" href="/css/main.css?20" />
     <asp:ContentPlaceHolder ID="HeadContentPlaceholder" runat="server">
     </asp:ContentPlaceHolder>
-    <link rel="shortcut icon" href="favicon.png" />
     <link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/libs/fancybox/jquery.fancybox.css" />
     <link rel="stylesheet" href="/css/media.css" />
@@ -50,9 +50,28 @@
                     <a href="/news">Новости 
                     </a>
                 </li>
-                <li>
-                    <a href="#">Помощь
-                    </a>
+                <li data-accordion>
+                    <div data-control>
+                        <a href="#" class="help-mobile-trigger">
+                            Помощь
+                            <i class="fa fa-angle-down help-mobile-arrow" aria-hidden="true"></i>
+                        </a>
+                    </div >
+                    <div data-content>
+                        <a href="/help">
+                            FAQ
+                        </a>
+                    </div>
+                    <div data-content>
+                        <a href="/help">
+                            Правила
+                        </a>
+                    </div>
+                    <div data-content>
+                        <a href="/help">
+                            О сайте
+                        </a>
+                    </div>
                 </li>
                 <asp:ContentPlaceHolder ID="InSlideoutListPlaceHolder" runat="server">
                 </asp:ContentPlaceHolder>
@@ -66,7 +85,7 @@
                     <i class="fa fa-bars" aria-hidden="true"></i>
                 </div>
                 <div class="heaven_menu_logo_cont">
-                    <a href="#" style="grid-column: 2">
+                    <a href="/" style="grid-column: 2">
                         <img src="/images/logo_z.svg" class="heaven_menu_logo" />
                     </a>
                     <div class="heaven_search">
@@ -91,47 +110,69 @@
                             <a href="/news">Новости 
                             </a>
                         </li>
-                        <li>
-                            <a href="#">Помощь
+                        <li class="help-trigger">
+                            <a href="#">
+                                Помощь
                             </a>
+                            <ul class="dd_menu cl-effect-5 help-menu">
+                                <li>
+                                    <a href="/help">
+                                        <span data-hover="FAQ">FAQ</span>
+                                    </a>
+                                </li>
+                                 <li>
+                                    <a href="/help">
+                                        <span data-hover="Правила">Правила</span>
+                                    </a>
+                                </li>
+                                 <li>
+                                    <a href="/help">
+                                        <span data-hover="О сайте">О сайте</span>
+                                    </a>
+                                </li> 
+                            </ul>
                         </li>
                     </ul>
                 </div>
                 <div class="header_login header_dropdown heaven_dropdown cl-effect-5">
                     <%if ((user != null) && (Request.IsAuthenticated))
                         { %>
-                    <div class="header-notify" data-tippy-animation="fade">
+                   <div class="header-notify" data-tippy-animation="fade">
                         <div class="notify-ico">
                             <i class="fa fa-bell" aria-hidden="true"></i>
+                            <div data-notify="<%var count = user.Notifications.Count(x => x.IsRead == false); if (count > 0) { Response.Write(count); } %>" class="notify-count">                  
+                            </div>
                         </div>
                     </div>
                     <div class="user_dropdown">
-                        <div class="user_dropdown_text" style="display: inline; margin-right: 5px;">
-                            <% if (user.Login.Length < 12)
-                                {
-                                    Response.Write(user.Login);
-                                }%>
+                        <div class="user-dropdown-main">
+                            <div class="user_dropdown_text" style="display: inline; margin-right: 5px;">
+                                <% if (user.Login.Length < 12)
+                                    {
+                                        Response.Write(user.Login);
+                                    }%>
+                            </div>
+                            <img src="<%=user.Image %>" class="user_dropdown_img">
+                            <i class="fa fa-angle-down" aria-hidden="true"></i>
                         </div>
-                        <img src="<%=user.Image %>" class="user_dropdown_img">
-                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        <ul class="dd_menu cl-effect-5 main-dd-menu">
+                            <li>
+                                <a href="/profile">
+                                    <span data-hover="Моя страница">Моя страница</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/edit">
+                                    <span data-hover="Настройки">Настройки</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Logout.aspx">
+                                    <span data-hover="Выход">Выход</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                    <ul class="dd_menu cl-effect-5">
-                        <li>
-                            <a href="/profile">
-                                <span data-hover="Моя страница">Моя страница</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/edit">
-                                <span data-hover="Настройки">Настройки</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/Logout.aspx">
-                                <span data-hover="Выход">Выход</span>
-                            </a>
-                        </li>
-                    </ul>
                     <% }
                     else
                     { %>
@@ -169,19 +210,24 @@
                     Уведомления
                 </div>
                 <div class="notify-list">
-                    <div class="notify-el">
-                        <div class="notify-image">
-                            <a>
-                                <img src="/images/haruhi.jpg" />
-                            </a>
-                        </div>
-                        <div class="notify-content">
-                            Уведомление безопасности, вас забанили, пройдите по этой ссылке, тутуруууу, папааппапапа
-                        </div>
-                        <div class="notify-date">
-                            28 Май 2018 23:48:42
-                        </div>
-                    </div>
+                    <asp:Repeater ID="NotifyRepeater" runat="server">
+                        <ItemTemplate>
+                            <div class="notify-el" id="<%#Eval("Id")%>">
+                                <div class="notify-image">
+                                    <a <%#Eval("ImageUrl") %>>
+                                        <img src="<%#Eval("Image")%>" />
+                                    </a>
+                                </div>
+                                <div class="notify-content">
+                                   <%#Eval("Content")%>
+                                </div>
+                                <div class="notify-date">
+                                    <%#Eval("Date")%>
+                                </div>
+                                <%#Eval("IsReadMarkup")%>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </div>
                 <div class="notify-additional">
                 </div>
@@ -190,6 +236,7 @@
         </main>
         <script src="/libs/jquery/jquery-1.11.1.min.js"></script>
         <script src="https://unpkg.com/tippy.js@2.5.2/dist/tippy.all.min.js"></script>
+        <script src="libs/accordion/jquery.accordion.js"></script>
         <script src="/libs/jqueryui/jquery-ui.min.js"></script>
         <script src="/libs/owl-carousel/owl.carousel.min.js"></script>
         <script src="/libs/landing-nav/navigation.js"></script>
@@ -199,18 +246,82 @@
         <%if ((user != null) && (Request.IsAuthenticated))
                 { %>
         <script>
+                function isElInView(element, fullyInView) {
+                    var pageTop = $(window).scrollTop();
+                    var pageBottom = pageTop + $(window).height();
+                    var elementTop = $(element).offset().top;
+                    var elementBottom = elementTop + $(element).height();
+
+                    if (fullyInView === true) {
+                        return ((pageTop < elementTop) && (pageBottom > elementBottom));
+                    } else {
+                        return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
+                    }
+                }
+
+                function checkNewNotifications(){
+                    $(".notify-el").each(function(i, el){
+                        if(isElInView(el, true) && $(el).find(".notify-new").length > 0){
+                            if($(el).data("read") != null){
+                                return;
+                            }
+                            var id = el.id;
+                            AllWaifu.AjaxHelper.ReadNotification(id,
+                                function (result) { },
+                                function (err) { console.log(err) },
+                            );
+                            $(el).data("read", "true");
+                            $(el).find(".notify-new").fadeOut(800);
+                            var count = parseInt($(".notify-count").attr("data-notify"));
+                            count -= 1;
+                            var newValue = count <= 0 ? "" : count.toString();                   
+                            $(".notify-count").attr("data-notify", newValue);
+                        }
+                    });
+                }
+
+                $(".notify-list").scroll(checkNewNotifications);
+
                 tippy(".header-notify", {
-                html : document.querySelector(".notify-container"),
-                interactive : true,
-                theme : 'notify',
-                placement : "bottom",
-                size : "small",
-                trigger : "click",
-                distance : 0,
-                inertia : true
-            });
+                    html : document.querySelector(".notify-container"),
+                    interactive : true,
+                    theme : 'notify',
+                    placement : "bottom",
+                    size : "small",
+                    trigger : "click",
+                    distance : 0,
+                    inertia: true,
+                    onShown(el){
+                        checkNewNotifications();
+                    }
+                });
         </script>
         <%} %>
+        <script>
+            $("li[data-accordion]").accordion({
+                "transitionSpeed": 400
+            });
+            userName = "<%=UserName%>";
+            email = "<%=Email%>";
+        </script>
+        <script>
+            
+            /* Feedback by userback.io */
+            Userback = window.Userback || {};
+            Userback.access_token = '1965|2738|rZLdE4KotJUrlEnv6tXjlg2KjMs4gvVFlAmUVYzw6UAEuTboQl';
+            if (email != "") {
+                Userback.email = email;
+            }
+            (function(id) {
+                if (document.getElementById(id)) {return;}
+                var s = document.createElement('script');
+                s.id = id;
+                s.async = 1;
+                s.src = 'https://static.userback.io/widget/v1.js';
+                var parent_node = document.head || document.body;
+                parent_node.appendChild(s);
+            })('userback-sdk');
+        </script>
         <asp:ContentPlaceHolder ID="FooterContentPlaceholder" runat="server">
         </asp:ContentPlaceHolder>
         <!-- Yandex.Metrika counter -->

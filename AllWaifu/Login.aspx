@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/anime.css" />
+    <link rel="stylesheet" href="/css/anime.css?1" />
     <link rel="stylesheet" href='/css/login.css??3>' />
     <link rel="stylesheet" href="/css/media.css" />
 </head>

@@ -103,6 +103,7 @@ body, #main_el {
     padding: 0;
     font-weight: bold;
     margin-top : 5px;
+    font-family: "RubikLight";
 }
 .search_sort_but:hover
 {
@@ -293,6 +294,9 @@ body, #main_el {
     padding: 6px;
     font-family: "RubikLight";
     text-transform: uppercase;
+}
+.type_title{
+    height : 36px;
 }
 .add_anime_waif_inf {
     position: absolute;

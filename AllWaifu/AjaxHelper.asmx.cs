@@ -411,13 +411,38 @@ namespace AllWaifu
                         return false;
                     }
                 }
+                var postedId = "";
                 using (var cmd = new SqlCommand("INSERT INTO " + table + " VALUES(@UserId, @Id, @Text, " +
-                                                "GETDATE())", _connection))
+                                                "GETDATE()); SELECT TOP 1 Id FROM "+table+" ORDER BY Id DESC;", _connection))
                 {
                     cmd.Parameters.AddWithValue("UserId", userFrom);
                     cmd.Parameters.AddWithValue("Id", id);
                     cmd.Parameters.AddWithValue("Text", text);
-                    cmd.ExecuteNonQuery();
+                    postedId = cmd.ExecuteScalar().ToString();
+                }
+                /* Comment reply notification section */
+                var ind = text.IndexOf("methods.replyHover(");
+                if (ind != -1)
+                {
+                    var tempText = text;
+                    ind += 19;
+                    tempText = tempText.Substring(ind);
+                    tempText = tempText.Remove(tempText.IndexOf("this"));
+                    var parameters = tempText.Split(',');
+                    var userToId = "";
+                    using (var cmd = new SqlCommand("SELECT UserFrom FROM " + table + " WHERE Id=@Id", _connection))
+                    {
+                        cmd.Parameters.AddWithValue("Id", parameters[1]);
+                        userToId = cmd.ExecuteScalar().ToString();
+                    }
+                    UserLight user = new UserLight();
+
+                    user.LoadById(userFrom);
+
+                    var notifyContent = String.Format("Пользователь <a href=\"/profile/{0}\">{0}</a> " +
+                                        "ответил на ваш <a onmouseover=\"notifyCommentHover('{1}',{2}, {3},this);\">" +
+                                        "комментарий</a>", user.Login, type, postedId, id);
+                    Notification.AddNew(userToId, notifyContent, false, user.Image, "/profile/"+user.Login);
                 }
             }
             return true;
@@ -482,6 +507,7 @@ namespace AllWaifu
                         cmd.ExecuteNonQuery();
                     }
                 }
+
             }
         }
         [WebMethod]
@@ -499,13 +525,26 @@ namespace AllWaifu
             }
         }
         [WebMethod]
+        public void ReadNotification(int id)
+        {
+            using (var _connection = new SqlConnection(Global.WaifString))
+            {
+                _connection.Open();
+                using(var cmd = new SqlCommand("UPDATE Notifications SET IsRead = 1 WHERE Id=@Id", _connection))
+                {
+                    cmd.Parameters.AddWithValue("Id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        [WebMethod]
         public string LiveSearch(string text)
         {
             var Result = new List<LiveSearchResult>();
             using (_connection = new SqlConnection(Global.WaifString))
             {
                 _connection.Open();
-                var tCmd = "(SELECT Id, Name, N'Waif' as Type, Popularity FROM Waifu WHERE (Confirmed = N'1') AND " +
+                var tCmd = "(SELECT Id, Name, N'Waifu' as Type, Popularity FROM Waifu WHERE (Confirmed = N'1') AND " +
                            "((Name LIKE N'%{0}%') OR (AlterNames LIKE N'%{0}%'))) UNION " +
                            "(SELECT Id, Name, N'Anime' as Type, Popularity FROM Anime WHERE " +
                            "Name LIKE N'%{0}%') ORDER BY Popularity DESC OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY";
@@ -579,6 +618,110 @@ namespace AllWaifu
             }
             return true;
         }
-
+        [WebMethod]
+        public void ChangeReputation(string userToken, string userTo, int type)
+        {
+            var user = Membership.GetUser(userToken as object);
+            var userFor = Membership.GetUser(userTo);
+            if (user == null || userFor == null)
+            {
+                return;
+            }
+            using (var _connection = new SqlConnection(Global.WaifString))
+            {
+                _connection.Open();
+                int eType = -1;
+                int changeRep = 0;
+                using (var cmd = new SqlCommand("SELECT Type FROM ReputatiogLog WHERE" +
+                                               " UserFrom=@UFrom AND UserTo=@UTo", _connection))
+                {
+                    cmd.Parameters.AddWithValue("@UFrom", userToken);
+                    cmd.Parameters.AddWithValue("@UTo", userTo);
+                    var returned = cmd.ExecuteScalar();
+                    if(returned != null)
+                    {
+                        eType = Convert.ToInt32(returned);
+                    }
+                }
+                if(eType == -1)
+                {
+                    changeRep = type == 0 ? 1 : -1;
+                    using(var cmd = new SqlCommand("INSERT INTO ReputationLog VALUES(@UFrom, " +
+                                                   "@UTo, @Type)", _connection))
+                    {
+                        cmd.Parameters.AddWithValue("@UFrom", userToken);
+                        cmd.Parameters.AddWithValue("@UTo", userTo);
+                        cmd.Parameters.AddWithValue("@Type", type);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                else
+                {
+                    if(!(eType == type))
+                    {
+                        changeRep = eType == 0 ? -2 : 2;
+                        using (var cmd = new SqlCommand("UPDATE ReputationLog SET Type=@Type WHERE " +
+                                                   "UserFrom=@UFrom AND UserTo=@UTo", _connection))
+                        {
+                            cmd.Parameters.AddWithValue("@UFrom", userToken);
+                            cmd.Parameters.AddWithValue("@UTo", userTo);
+                            cmd.Parameters.AddWithValue("@Type", type);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+                if (changeRep != 0)
+                {
+                    using (var cmd = new SqlCommand("UPDATE Users SET Reputation=Reputation+@Rep WHERE " +
+                                                   "Name=@UTo", _connection))
+                    {
+                        cmd.Parameters.AddWithValue("UTo", userTo);
+                        cmd.Parameters.AddWithValue("Rep", changeRep);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+        [WebMethod]
+        public void ChangeRole(string userToken, string userTo, string role)
+        {
+            var user = Membership.GetUser(userToken as object);
+            var userFor = Membership.GetUser(userTo);
+            if(user == null || userFor == null || 
+                !Roles.RoleExists(role) || role.ToLower()=="creator")
+            {
+                return;
+            }
+            var ufRole = Roles.GetRolesForUser(user.UserName)[0];
+            var utRole = Roles.GetRolesForUser(userTo)[0];
+            if((ufRole == "Moderator") || (ufRole == "User") || 
+                      (ufRole==utRole) || (utRole == "Creator"))
+            {
+                return;
+            }
+            if(role == "Admin" && ufRole != "Creator")
+            {
+                return;
+            }
+            Roles.RemoveUserFromRole(userTo, utRole);
+            Roles.AddUserToRole(userTo, role);
+            var message = "";
+            switch (role.ToLower())
+            {
+                case "banned":
+                    message = "Вас забанили! Теперь вы не можете оставлять комментарии и отправлять свои описания.";
+                    break;
+                case "user":
+                    message = "Вы снова стали обычным пользователем!";
+                    break;
+                case "moderator":
+                    message = "Вы стали модератором! Теперь вы обязаны следить за порядком на сайте. Вы можете удалять неподобающие комментарии пользователей, ваши жалобы будут более тщательно рассматриваться.";
+                    break;
+                case "admin":
+                    message = "Вы стали администратором! Теперь вам доступны функции добавления новостей, назначения модераторов, бана пользователей, принятия описаний, добавления страниц аниме, манги и игр.";
+                    break;
+            }
+            Notification.AddNew(userFor.ProviderUserKey.ToString(), message, false, "/images/notify.png");
+        }
     }
 }

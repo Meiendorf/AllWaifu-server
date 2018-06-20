@@ -19,14 +19,18 @@ namespace AllWaifu
         public bool IsAdmin { get; set; } = false;
         public string UserId { get; set; } = "";
         public string UserRole { get; set; } = "User";
+
+        public string ReplyId { get; set; } = "";
+        public string ReplyFrom { get; set; } = "";
+
         public SqlConnection _connection { get; set; } = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             bool okey = false;
-            string qId = RouteData.Values["id"].ToString();
-            if (!String.IsNullOrEmpty(qId))
+            if (RouteData.Values["id"] != null)
             {
+                string qId = RouteData.Values["id"].ToString();
                 using (_connection = new SqlConnection(Global.WaifString))
                 {
                     _connection.Open();
@@ -42,7 +46,13 @@ namespace AllWaifu
             }
             if(!okey)
             {
-                Response.Redirect("/error/NotFound");
+                Response.Redirect("/error/404");
+            }
+            if (!String.IsNullOrEmpty(Request.QueryString["replyId"]) &&
+               !String.IsNullOrEmpty(Request.QueryString["replyFrom"]))
+            {
+                ReplyId = Request.QueryString["replyId"];
+                ReplyFrom = Request.QueryString["replyFrom"];
             }
             if (Request.IsAuthenticated)
             {

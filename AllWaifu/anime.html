@@ -119,6 +119,9 @@
             <div class="header-notify" data-tippy-animation="fade">
                 <div class="notify-ico">
                     <i class="fa fa-bell" aria-hidden="true"></i>
+                    <div data-notify="2" class="notify-count">
+                        
+                    </div>
                 </div>
             </div>
             <div class="user_dropdown">
@@ -531,6 +534,7 @@
                             <div class="notify-date">
                                 28 Май 2018 23:48:42
                             </div>
+                            <div class="notify-new"></div>
                         </div>
                         <div class="notify-el">
                             <div class="notify-image">
@@ -570,10 +574,36 @@
                             <div class="notify-date">
                                 28 Май 2018 23:48:42
                             </div>
+                        </div>
+                        <div class="notify-el">
+                            <div class="notify-image">
+                                <a>
+                                    <img src="images/haruhi.jpg"/>
+                                </a>
+                            </div>
+                            <div class="notify-content">
+                                Уведомление безопасности, вас забанили, пройдите по этой ссылке, тутуруууу, папааппапапа
+                            </div>
+                            <div class="notify-date">
+                                28 Май 2018 23:48:42
+                            </div>
+                        </div>
+                        <div class="notify-el">
+                            <div class="notify-image">
+                                <a>
+                                    <img src="images/haruhi.jpg"/>
+                                </a>
+                            </div>
+                            <div class="notify-content">
+                                Уведомление безопасности, вас забанили, пройдите по этой ссылке, тутуруууу, папааппапапа
+                            </div>
+                            <div class="notify-date">
+                                28 Май 2018 23:48:42
+                            </div>
+                            <div class="notify-new"></div>
                         </div>
                     </div>
                     <div class="notify-additional">
-
                     </div>
                 </div>
             </div>
@@ -599,9 +629,39 @@
     </footer>
 
     </main>
+    <script src="libs/jquery/jquery-1.11.1.min.js"></script>
     <script src="https://unpkg.com/tippy.js@2.5.2/dist/tippy.all.min.js"></script>
     <script src="js/vk_openapi.js"></script>
     <script type="text/javascript">
+        function isElInView(element, fullyInView) {
+            var pageTop = $(window).scrollTop();
+            var pageBottom = pageTop + $(window).height();
+            var elementTop = $(element).offset().top;
+            var elementBottom = elementTop + $(element).height();
+
+            if (fullyInView === true) {
+                return ((pageTop < elementTop) && (pageBottom > elementBottom));
+            } else {
+                return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
+            }
+        }
+        function checkNewNotifications(){
+            $(".notify-el").each(function(i, el){
+                if(isElInView(el, true) && $(el).find(".notify-new").length > 0){
+                    if($(el).data("read") != null){
+                        return;
+                    }
+                    $(el).data("read", "true");
+                    $(el).find(".notify-new").fadeOut(800);
+                    var count = parseInt($(".notify-count").attr("data-notify"));
+                    count -= 1;
+                    var newValue = count <= 0 ? "" : count.toString();                   
+                    $(".notify-count").attr("data-notify", newValue);
+                }
+            });
+        }
+        $(".notify-list").scroll(checkNewNotifications);
+    
         tippy(".header-notify", {
             html : document.querySelector(".notify-container"),
             interactive : true,
@@ -610,14 +670,29 @@
             size : "small",
             trigger : "click",
             distance : 0,
-            inertia : true
+            inertia : true,
+            onShown(el){
+                checkNewNotifications();
+            }
         });
 		VK.Widgets.Group("vk_groups", {mode: 4, width: "auto", wide: 1, height: "400"}, 155417759);
-	</script>
-    <script src="libs/jquery/jquery-1.11.1.min.js"></script>
+    </script>
+    <script>
+        Userback = window.Userback || {};
+        Userback.access_token = '1965|2738|rZLdE4KotJUrlEnv6tXjlg2KjMs4gvVFlAmUVYzw6UAEuTboQl';
+
+        (function(id) {
+            if (document.getElementById(id)) {return;}
+            var s = document.createElement('script');
+            s.id = id;
+            s.async = 1;
+            s.src = 'https://static.userback.io/widget/v1.js';
+            var parent_node = document.head || document.body;
+            parent_node.appendChild(s);
+        })('userback-sdk');
+        $(".userback-controls-options input[type=email]")[0].value = "Hello!";
+    </script>
     <script src="libs/jquery-mousewheel/jquery.mousewheel.min.js"></script>
-    <script src="libs/fancybox/jquery.fancybox.pack.js"></script>
-    <script src="libs/waypoints/waypoints-1.6.2.min.js"></script>
     <script src="libs/countdown/jquery.plugin.js"></script>
     <script src="libs/countdown/jquery.countdown.min.js"></script>
     <script src="libs/countdown/jquery.countdown-ru.js"></script>

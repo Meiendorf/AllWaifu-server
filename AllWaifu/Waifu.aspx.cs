@@ -21,6 +21,9 @@ namespace AllWaifu
         public string UserName { get; set; } = "";
         public string UserId { get; set; } = "";
 
+        public string ReplyId { get; set; } = "";
+        public string ReplyFrom { get; set; } = "";
+
         public int CurrentElement { get; set; } = 0;
         public List<LightElement> TopPopWaif = new List<LightElement>();
         public List<LightElement> TopFavWaif = new List<LightElement>();
@@ -30,14 +33,8 @@ namespace AllWaifu
 
             if (RouteData.Values["id"] != null)
             {
-                try
-                {
-                    DataBaseWork(Convert.ToInt32(RouteData.Values["id"]));
-                }
-                catch (Exception err)
-                {
-                    Response.Redirect("/error/"+err.Message);
-                }
+                DataBaseWork(Convert.ToInt32(RouteData.Values["id"]));
+                
                 if (Master.user == null)
                 {
                     var _user = Membership.GetUser();
@@ -62,9 +59,16 @@ namespace AllWaifu
                 {
                     if ((UserRole == "User") || (UserRole == "Moder"))
                     {
-                        Response.Redirect("/error/NoAccess");
+                        Response.Redirect("/error/401");
                     }
                 }
+                if (!String.IsNullOrEmpty(Request.QueryString["replyId"]) &&
+                    !String.IsNullOrEmpty(Request.QueryString["replyFrom"]))
+                {
+                    ReplyId = Request.QueryString["replyId"];
+                    ReplyFrom = Request.QueryString["replyFrom"];
+                }
+
                 if (Request.IsAuthenticated)
                 {
                     IsAuthenticated = true;
@@ -146,7 +150,7 @@ namespace AllWaifu
             }
             else
             {
-                Response.Redirect("/error/NotFound");
+                Response.Redirect("/error/404");
             }
         }
         protected void Page_Unload(object sender, EventArgs e)

@@ -76,6 +76,15 @@ namespace AllWaifu {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContentPlaceholder;
         
         /// <summary>
+        /// NotifyRepeater элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater NotifyRepeater;
+        
+        /// <summary>
         /// FooterContentPlaceholder элемент управления.
         /// </summary>
         /// <remarks>

@@ -46,6 +46,7 @@
                     <option>Всё</option>
                     <option>Персонажи</option>
                     <option>Аниме</option>
+                    <%if (IsAdmin) { Response.Write("<option>Не принятые</option>"); }%>
                 </select>
             </li>
             <li class="search_tags">
@@ -151,6 +152,7 @@
                             <option>Всё</option>
                             <option>Персонажи</option>
                             <option>Аниме</option>
+                            <%if (IsAdmin) { Response.Write("<option>Не принятые</option>"); }%>
                         </select>
                     </li>
                 </ul>
@@ -181,6 +183,7 @@
         text = '<%=Text%>';
         tags = '<%=Tags%>';
         user = '<%=User%>';
+        heart = "<%=IsAdmin%>" == "True" ? true : false;
         userType = '<%=UserType%>';
         $('.chosen-select').chosen();
     </script>

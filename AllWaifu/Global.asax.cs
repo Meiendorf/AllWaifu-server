@@ -56,6 +56,7 @@ namespace AllWaifu
             routes.MapPageRoute("LoginRoute", "login", "~/Login.aspx");
             routes.MapPageRoute("AddRoute", "add/{id}", "~/Add.aspx", false, idNullRoute);
             routes.MapPageRoute("NewsRoute", "news", "~/News.aspx");
+            routes.MapPageRoute("HelpRoute", "help", "~/Help.aspx");
             routes.MapPageRoute("ProfileRoute", "profile/{id}", "~/Profile.aspx", false, idNullRoute);
             routes.MapPageRoute("RecoveryRoute", "recovery/{token}", "~/Recovery.aspx", false,
                 new RouteValueDictionary { { "token", null } });

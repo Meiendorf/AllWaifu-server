@@ -306,6 +306,8 @@ namespace AllWaifu
                 _connection.Open();
                 if (approve)
                 {
+                    Notification.AddNew(Author, "<a href=\"/waifu/"+Id.ToString()+"\">Ваше описание было принято!</a>",
+                                        true, Image, "/waifu/"+Id.ToString());
                     Confirmed = "1";
                 }
                 SqlCommand cmd;
@@ -760,9 +762,14 @@ namespace AllWaifu
         public string Description { get; private set; }
         public string RegDate { get; private set; }
         public string Color { get; private set; }
+        public int Reputation { get; private set; } = 1;
+        public bool CanComment { get; private set; } = true;
+        public bool NotifyComment { get; private set; } = true;
+        public bool Exist { get; private set; } = false;
         public List<WaifuLight> Favorites { get; private set; } = new List<WaifuLight>();
         public List<WaifuLight> Added { get; private set; } = new List<WaifuLight>();
         public List<Comment> Comments { get; private set; } = new List<Comment>();
+        public List<Notification> Notifications { get; private set; } = new List<Notification>();
         private MembershipUser User { get; set; }
         public UserFull() { }
 
@@ -950,20 +957,19 @@ namespace AllWaifu
             {
                 Role = "User";
             }
-            Color = "color : ";
             switch (Role)
             {
                 case "User":
-                    Color += "#6500A9";
+                    Color = "#6500A9";
                     break;
                 case "Admin":
-                    Color += "#A90000";
+                    Color = "#A90000";
                     break;
                 case "Moder":
-                    Color += "#2011EC";
+                    Color = "#2011EC";
                     break;
                 default:
-                    Color += "#A91197";
+                    Color = "#A91197";
                     break;
             }
         }
@@ -981,7 +987,9 @@ namespace AllWaifu
                 Url = rd["Url"].ToString();
                 Description = rd["Description"].ToString();
                 Image = rd["Image"].ToString();
-
+                CanComment = Convert.ToBoolean(rd["CanComment"]);
+                NotifyComment = Convert.ToBoolean(rd["NotifyComment"]);
+                Reputation = Convert.ToInt16(rd["Reputation"]);
                 rd.Close();
                 cmd.Dispose();
 
@@ -1010,13 +1018,9 @@ namespace AllWaifu
                 rd.Close();
                 cmd.Dispose();
 
-                cmd = new SqlCommand("SELECT * FROM UserComments WHERE UserTo=@Login", _connection);
-                cmd.Parameters.AddWithValue("Login", Login);
-
-                Comments = Waifu.LoadCommentList(cmd);
                 WaifuLight empty = new WaifuLight();
                 empty.Id = -1;
-                empty.Image = "images/none2.png";
+                empty.Image = "/images/none2.png";
                 empty.Name = "Пусто.";
                 if (Added.Count == 0)
                 {
@@ -1033,6 +1037,37 @@ namespace AllWaifu
                 _connection.Close();
             }
         } 
+        public void LoadComments()
+        {
+            /*var cmd = new SqlCommand("SELECT * FROM UserComments WHERE UserTo=@Login", _connection);
+            cmd.Parameters.AddWithValue("Login", Login);
+
+            Comments = Waifu.LoadCommentList(cmd);*/
+            throw new NotImplementedException();
+        }
+        public void LoadNotifications()
+        {
+            if(Id == "-1")
+            {
+                return;
+            }
+            using (var _connection = new SqlConnection(Global.WaifString))
+            {
+                _connection.Open();
+                using (var cmd = new SqlCommand("SELECT * FROM Notifications WHERE UserId=@Id ORDER BY Id DESC", _connection))
+                {
+                    cmd.Parameters.AddWithValue("Id", Id);
+                    using (var rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            Notifications.Add(new Notification(rd));
+                        }
+                    }
+                }
+            }
+        }
+
         public WaifuLight CreateFromReader(SqlDataReader rd)
         {
             WaifuLight wl = new WaifuLight();
@@ -1139,7 +1174,87 @@ namespace AllWaifu
             }
         }
     }
-    
+
+    public class Notification
+    {
+        public int Id { get; set; } = -1;
+        public string UserId { get; set; } = "";
+        public string Content { get; set; } = "";
+        public string Image { get; set; } = "";
+        public string ImageUrl { get; set; } = "";
+        public bool IsRead { get; set; } = false;
+        public string Date { get; set; } = "";
+        public string IsReadMarkup { get; set; } = "<div class=\"notify-new\"></div>";
+
+        public Notification()
+        {
+
+        }
+        public Notification(SqlDataReader rd)
+        {
+            if (rd.ColumnExists("Id"))
+            {
+                Id = Convert.ToInt32(rd["Id"].ToString());
+            }
+            if (rd.ColumnExists("UserId"))
+            {
+                UserId = rd["UserId"].ToString();
+            }
+            if (rd.ColumnExists("Content"))
+            {
+                Content = rd["Content"].ToString();
+            }
+            if (rd.ColumnExists("Image"))
+            {
+                Image = rd["Image"].ToString();
+            }
+            if (rd.ColumnExists("IsRead"))
+            {
+                IsRead = Convert.ToBoolean(rd["IsRead"]);
+                if (IsRead)
+                {
+                    IsReadMarkup = "";
+                }
+            }
+            if (rd.ColumnExists("Timestamp"))
+            {
+                Date = rd["Timestamp"].ToString();
+            }
+            if (rd.ColumnExists("ImageUrl"))
+            {
+                if (rd["ImageUrl"].ToString() != "")
+                {
+                    ImageUrl = "href=\"" + rd["ImageUrl"].ToString() + "\"";
+                }
+            }
+        }
+        
+        public static void AddNew(string userId, string content, bool isUserName = false, string image = "/images/none.png", string imageUrl="")
+        {
+            using (var _connection = new SqlConnection(Global.WaifString))
+            {
+                _connection.Open();
+                if (isUserName)
+                {
+                    using (var cmd = new SqlCommand("SELECT Id FROM Users WHERE Name=@Name", _connection))
+                    {
+                        cmd.Parameters.AddWithValue("Name", userId);
+                        userId = cmd.ExecuteScalar().ToString();
+                    }
+                }
+                using (var cmd = new SqlCommand("INSERT INTO Notifications (UserId, Content, Image, ImageUrl) " +
+                                               " VALUES (@UId, @Content, @Image, @ImageUrl)", _connection))
+                {
+                    cmd.Parameters.AddWithValue("UId", userId);
+                    cmd.Parameters.AddWithValue("Content", content);
+                    cmd.Parameters.AddWithValue("Image", image);
+                    cmd.Parameters.AddWithValue("ImageUrl", imageUrl);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+    }
+
     public class LiveSearchResult
     {
         public string label { get; set; }
@@ -1153,9 +1268,10 @@ namespace AllWaifu
         public LiveSearchResult(SqlDataReader rd)
         {
             label = rd["Name"].ToString();
-            href = String.Format("{0}.aspx?id={1}", rd["Type"].ToString(), rd["Id"].ToString());
+            href = String.Format("/{0}/{1}", rd["Type"].ToString().ToLower(), rd["Id"].ToString());
         }
     }
+
     public static class SmtpHelper
     {
         public static SmtpClient client { get; set; }

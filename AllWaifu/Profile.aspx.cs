@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -13,7 +15,11 @@ namespace AllWaifu
         public UserFull user { get; set; } = null;
         public string ClientId { get; set; } = "";
         public bool IsUserPage { get; set; } = true;
+        public int RepuationType { get; set; } = -1;
         public string Role { get; set; } = "";
+        public string ReplyId { get; set; } = "";
+        public string ReplyFrom { get; set; } = "";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.IsAuthenticated)
@@ -40,13 +46,45 @@ namespace AllWaifu
                 var us = Membership.GetUser(Login);
                 if (us == null)
                 {
-                    Response.Redirect("/error/NotFoundUser "+Login);
+                    Response.Redirect("/error/404");
                 }
                 else
                 {
+                    if (((AllWaifu)Master).user != null)
+                    {
+                        if(!(((AllWaifu)Master).user.Login == us.UserName))
+                        {
+                            IsUserPage = false;
+                            using (var _connection = new SqlConnection(Global.WaifString))
+                            {
+                                _connection.Open();
+                                using (var cmd = new SqlCommand("SELECT Type FROM ReputationLog WHERE " +
+                                                               "UserFrom=@Uf AND UserTo=@Ut", _connection))
+                                {
+                                    cmd.Parameters.AddWithValue("Uf", ((AllWaifu)Master).user.Id);
+                                    cmd.Parameters.AddWithValue("Ut", us.UserName);
+                                    var type = cmd.ExecuteScalar();
+                                    if(type != null)
+                                    {
+                                        RepuationType = Convert.ToInt32(type);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        IsUserPage = false;
+                    }
                     user = new UserFull(us);
                 }
-                IsUserPage = false;
+            }
+            
+            if(!String.IsNullOrEmpty(Request.QueryString["replyId"]) && 
+               !String.IsNullOrEmpty(Request.QueryString["replyFrom"]))
+            {
+                ReplyId = Request.QueryString["replyId"];
+                ReplyFrom = Request.QueryString["replyFrom"];
             }
 
             Initializate_Repeaters();

@@ -187,12 +187,24 @@
     <script type="text/javascript">
         anime_id = <%=PageAnim.Id%>;
         userId = "<%=UserId%>";
+        pageReplyId = "<%=ReplyId%>";
+        pageReplyFrom = "<%=ReplyFrom%>";
+
         $("#CommentsBlock").comments("init", {
             "type": "anime",
             "id": anime_id,
             "username": userId,
             "heart": "<%if (UserRole != "User") { Response.Write("underblade"); }%>"
         });
+        if (pageReplyId != "") {
+            var data = $("#CommentsBlock").data("commentsData");
+            data.replyId = pageReplyId;
+            data.replyTo = pageReplyFrom;
+            $("#CommentsBlock").data("commentsData", data);
+            $("#CommentsBlock").find(".comment_inp")[0].focus();
+            $("#CommentsBlock").find(".reply_box").show().find(".reply_box_to")[0].innerText = "Ответ @" + data.replyTo;
+        }
         VK.Widgets.Group("vk_groups", { mode: 4, width: "auto", wide: 1, height: "400" }, 155417759);
 	</script>
+    
 </asp:Content>

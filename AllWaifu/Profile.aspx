@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContentPlaceholder" runat="server">
     <link rel="stylesheet" href="/css/anime.css" />
     <link rel="stylesheet" href="/css/profile.css?<%=DateTime.Now.Ticks.ToString() %>" />
-    <link rel="stylesheet" href="/css/search.css" />
+    <link rel="stylesheet" href="/css/search.css?1" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="SlideoutPlaceHolder" runat="server">
 </asp:Content>
@@ -17,7 +17,7 @@
         </a>
     </li>
     <%} %>
-    <li>
+    <li onclick="$('header-notify').click()">
         <a href="#">Уведомления
         </a>
     </li>
@@ -28,19 +28,19 @@
     <%}
         else
         {%>
-    <li style="border-top: 2px solid #29A4D0">
+    <li style="border-top: 2px solid #29A4D0" onclick="alert('Not implemented yet');">
         <a href="#">Повысить репутацию
         </a>
     </li>
-    <li>
+    <li onclick="alert('Not implemented yet');">
         <a href="#">Понизить репутацию
         </a>
     </li>
-    <li>
+    <li onclick="$('.userback-button').click()">
         <a href="#">Пожаловаться
         </a>
     </li>
-    <li>
+    <li onclick="$('#CommentsBlock textarea').focus()">
         <a href="#">Прокомментировать
         </a>
     </li>
@@ -78,7 +78,7 @@
                     <%}%>
                     <div class="profile_info_el">
                         <b>Группа : </b>
-                        <span color="<%=user.Color%>"><%=user.Role %></span>
+                        <span style="color : <%=user.Color%>"> <%=user.Role %></span>
                     </div>
                     <div class="profile_info_el">
                         <b>Дата регистрации : </b><%=user.RegDate %>
@@ -98,7 +98,7 @@
                 </div>
                 <div class="profile_added_waifu">
                     <div class="cl-effect-5">
-                        <a class="type_title link_type_title" href="#">
+                        <a class="type_title link_type_title" href="/search/waifu?user=<%=user.Login%>&userby=added">
                             <span data-hover="ДОБАВЛЕННЫЕ">ДОБАВЛЕННЫЕ</span>
                         </a>
                     </div>
@@ -130,7 +130,7 @@
                 </div>
                 <div class="profile_added_waifu">
                     <div class="cl-effect-5">
-                        <a class="type_title link_type_title" href="#">
+                        <a class="type_title link_type_title" href="/search/waifu?user=<%=user.Login%>&userby=fav">
                             <span data-hover="ЗАКЛАДКИ">ЗАКЛАДКИ</span>
                         </a>
                     </div>
@@ -173,13 +173,9 @@
                 <%if (Request.IsAuthenticated){ %>
                     <%if (IsUserPage)
                         { %>
-                    <div class="profile_settings_el">
+                    <div class="profile_settings_el" onclick="$(location).attr('href', '/edit');">
                         <i class="fa fa-cog" aria-hidden="true"></i>
                         Настройки
-                    </div>
-                    <div class="profile_settings_el">
-                        <i class="fa fa-bell-o" aria-hidden="true"></i>
-                        Уведомления
                     </div>
                     <% if(Role != "User"){ %>
                     <div class="profile_settings_el" onclick="$('.profile_anime_cont').fadeIn();">
@@ -187,26 +183,26 @@
                         Добавить аниме
                     </div>
                     <%} %>
-                    <div class="profile_settings_el">
+                    <div class="profile_settings_el" onclick="$(location).attr('href', '/Logout.aspx');">
                         <i class="fa fa-sign-out" aria-hidden="true" style="padding-left: 2px"></i>
                         Выход
                     </div>
                     <%}
                         else
                         { %>
-                    <div class="profile_settings_el">
+                    <div class="profile_settings_el" onclick="alert('Not implemented yet');" >
                         <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                         Повысить репутацию
                     </div>
-                    <div class="profile_settings_el">
+                    <div class="profile_settings_el" onclick="alert('Not implemented yet');">
                         <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
                         Понизить репутацию
                     </div>
-                    <div class="profile_settings_el">
+                    <div class="profile_settings_el" onclick="$('.userback-button').click()">
                         <i class="fa fa-times" aria-hidden="true"></i>
                         Пожаловаться
                     </div>
-                    <div class="profile_settings_el">
+                    <div class="profile_settings_el" onclick="$('#CommentsBlock textarea').focus()">
                         <i class="fa fa-comment-o" aria-hidden="true"></i>
                         Прокомментировать
                     </div>
@@ -273,6 +269,8 @@
         heart = "<%if (Role != "User") { Response.Write("underblade"); }%>";
         pageId = "<%=user.Login%>";
         userId = "<%=ClientId%>";
+        pageReplyId = "<%=ReplyId%>";
+        pageReplyFrom = "<%=ReplyFrom%>";
     </script>
     <script src="/js/profile.js?<%=DateTime.Now.Ticks.ToString() %>"></script>
     <script src="/js/profile_comments.js?<%=DateTime.Now.Ticks.ToString() %>"></script>

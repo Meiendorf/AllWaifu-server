@@ -1,4 +1,4 @@
-$(document).ready(function() {
+﻿$(document).ready(function() {
 
     var slideout = new Slideout({
         'panel': document.getElementById('main_el'),
@@ -58,44 +58,54 @@ $(document).ready(function() {
     } catch(e){
     
     }
-     
-    $(document).on("click", function (e) {
-        try {
-            if ($(".dd_menu")[0] != null) {
-                var el = e.toElement;
-                if ((el.className == "user_dropdown") ||
-                    (el.parentElement.className == "user_dropdown") ||
-                    (el.parentElement.className == "dd_menu")) {
-                    return;
-                }
-                if ($(".dd_menu")[0].style.display != "none") {
-                    $(".dd_menu").fadeOut(200);
-                }
+    $(document).click(function(event) { 
+        if(!$(event.target).closest('.user_dropdown').length) {
+            if($('.main-dd-menu').is(":visible")) {
+                $('.main-dd-menu').fadeOut(200);
             }
-        }
-        catch (e) {
-
-        }
+        }     
+        if(!$(event.target).closest('.help-trigger').length) {
+            if($('.help-menu').is(":visible")) {
+                $('.help-menu').fadeOut(200);
+            }
+        }        
     });
 
     $(".user_dropdown").click(function(){
-        var el = $(".dd_menu");
+        var el = $(".main-dd-menu");
         if (el[0] != null) {
-            if (el[0].style.display == "none") {
-                el.fadeIn(200);
-            }
-            else {
+            if (el.is(":visible")) {
                 el.fadeOut(200);
             }
+            else {
+                el.fadeIn(200);
+            }
         }
+    }); 
+    $(".help-trigger").click(function(){
+        var el = $(".help-menu");
+        if (el[0] != null) {
+            if (el.is(":visible")) {
+                el.fadeOut(200);
+            }
+            else {
+                el.fadeIn(200);
+            }
+        }
+    }); 
+
+    $(".help-mobile-trigger").click(function(){
+        $(this).toggleClass("help-mobile-bgc");
+        $(".help-mobile-arrow").toggleClass('rotated');
     });
+
     /* Search functionality */
     try{
     function EqualWidth(id) {
         $("#ui-id-1").width($(".heaven_search").eq(id).width());
     }
     function OnSearchEnterPress(t="") {
-        var href = "nsearch.aspx?text=" + $("#SearchBox" + t)[0].value;
+        var href = "/search/all/" + $("#SearchBox" + t)[0].value;
         $(location).attr('href', href);
     }
     function SearchBothFunc(ul, item) {
@@ -151,3 +161,94 @@ $(document).ready(function() {
    /* $("#SearchBox").autocomplete( "option", "source", [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ] );
     */
 });
+
+/* Notifications functionality */
+function notifyCommentHover(type, id, elId, th) {
+    var cloneble = $('<div class="comment_el"> <div class="comment_img"> <a href="#"> <img/> </a> </div> <div class="comment_name"> <a href="#"> Рома Мельник </a> </div> <div class="comment_additional"> <div class="comment_date"> 28 Май 2018 23:48:42 </div> <div class="comment_reply"> <a>Ответить</a> </div> </div> <div class="comment_text"> </div></div>');
+    if ($(th).data("replyActivated") != null) {
+        return;
+    }
+    th.title = "Загрузка...";
+    tippy(th,
+        {
+            interactive: 'true',
+            theme: 'light'
+        });
+    th._tippy.show();
+    AllWaifu.AjaxHelper.GetCommentById(type, id,
+        function (result) {
+            $(th).data("replyActivated", true);
+            th._tippy.destroy();
+            if (result == "") {
+                th.title = "Комментарий удален";
+                tippy(th,
+                    {
+                        interactive: 'true',
+                        theme: 'light'
+                    });
+                th._tippy.show();
+                return;
+            }
+            var el = JSON.parse(result);
+            var comment = notifyCommentFillTemplate(el, cloneble);
+            comment.find(".delete_el_but").remove();
+            var viewLink = comment.find(".comment_text a");
+            if (viewLink.length > 0) {
+                viewLink.eq(0).attr("onmouseover", viewLink.eq(0).attr("onmouseover").
+                    replace("methods.replyHover", "notifyCommentHover"));
+            }
+            var cmReply = comment.find(".comment_reply");
+            cmReply.data("replyId", el["Id"]);
+            cmReply.data("replyType", type);
+            cmReply.data("replyFrom", userName);
+            cmReply.data("pageId", elId);
+            tippy(th,
+                {
+                    html: comment[0],
+                    interactive: 'true',
+                    maxWidth : '420px',
+                    theme: 'noticomment'
+                });
+            th._tippy.show();
+        },
+        function (err) {
+            console.log(err);
+        });
+}
+function notifyCommentFillTemplate(el, cloneble) {
+    var result = cloneble.clone();
+    result.find(".comment_name").find("a")[0].innerText = el["From"]["Login"];
+    result.find(".comment_name").find("a")[0].href = "/profile/" + el["From"]["Login"];
+    result.find(".comment_img").find("img")[0].src = el["From"]["Image"];
+    result.find(".comment_img").find("a")[0].href = "/profile/" + el["From"]["Login"];
+    result.find(".comment_date")[0].innerText = el["Date"];
+    result.find(".comment_text")[0].innerHTML = el["Text"];
+    if (result.find(".comment_reply").length > 0) {
+        result.find(".comment_reply").click(notifyReplyButtonClick);
+    }
+    return result;
+}
+function notifyReplyButtonClick() {
+    if ($(this).data("replyId") == null) {
+        return;
+    }
+    var link = "#";
+    var linkTemplate = '/{0}/{1}?replyId=' + $(this).data("replyId") + '&replyFrom=' + $(this).data("replyFrom");
+    var type = $(this).data("replyType");
+    switch (type) {
+        case "user":
+            link = String.format(linkTemplate, "profile", $(this).data("pageId"));
+            break;
+        case "anime":
+            link = String.format(linkTemplate, "anime", $(this).data("pageId"));
+            break;
+        case "waifu":
+            link = String.format(linkTemplate, "waifu", $(this).data("pageId"));
+            break;
+    }
+    
+    $(location).attr('href', link);
+}
+
+    /* Notifications functionality */
+

@@ -30,7 +30,7 @@ namespace AllWaifu
                 bool res = RenWaif.ReadFromBase(Convert.ToInt32(RouteData.Values["id"]));
                 if (!res)
                 {
-                    Response.Redirect("/error/NotFound");
+                    Response.Redirect("/error/404");
                     return;
                 }
                 var serializer = new JavaScriptSerializer();

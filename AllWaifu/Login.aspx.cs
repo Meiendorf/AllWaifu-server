@@ -119,7 +119,9 @@ namespace AllWaifu
             {
                 SqlCommand command = new SqlCommand("INSERT INTO Users (Id, Name, Image, Url, RealName)" +
                                                     " VALUES (@Id, @Name, @Image, @Url, @RealName)", _connection);
-                command.Parameters.AddWithValue("Id", Membership.GetUser(login).ProviderUserKey.ToString());
+                var Id = Membership.GetUser(login).ProviderUserKey.ToString();
+                Notification.AddNew(Id, "Благодарим за регистрацию на нашем сайте!", false, "/images/hanekawa.png");
+                command.Parameters.AddWithValue("Id", Id);
                 command.Parameters.AddWithValue("Name", login);
                 command.Parameters.AddWithValue("Image", image ?? DBNull.Value);
                 command.Parameters.AddWithValue("Url", url ?? DBNull.Value);

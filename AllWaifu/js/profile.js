@@ -20,6 +20,14 @@
         "username": userId,
         "heart": heart
     });
+    if (pageReplyId != "") {
+        var data = $("#CommentsBlock").data("commentsData");
+        data.replyId = pageReplyId;
+        data.replyTo = pageReplyFrom;
+        $("#CommentsBlock").data("commentsData", data);
+        $("#CommentsBlock").find(".comment_inp")[0].focus();
+        $("#CommentsBlock").find(".reply_box").show().find(".reply_box_to")[0].innerText = "Ответ @" + data.replyTo;
+    }
 });
 
 ned_close = true;
@@ -92,6 +100,26 @@ function SendAnime()
         );
         $(".profile_anime_cont").fadeOut();
     }
+}
+function RepuationChange(){
+    throw "NotImplemented";
+    
+    var changeVal = -1;
+    if(this.classList.exist("purusu")){
+        changeVal = 0;
+    }
+    else{
+        changeVal = 1;
+    }
+    if(glLastChangeVal == changeVal){
+        return;
+    }
+    if(this.classList.exist("reputation-active")){
+        return;
+    }
+    $(".reputation-active").each(function(eI, e){e.classList.remeve()});
+    this.classList.add("reputatioin-active");
+    
 }
 /**************************************************************************
 Submit off, remember please*/

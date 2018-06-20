@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -15,6 +16,7 @@ namespace AllWaifu
         public string Tags { get; set; } = "";
         public string User { get; set; } = "";
         public string UserType { get; set; } = "";
+        public bool IsAdmin { get; set; } = false;
         public List<string> FormatedTags { get; set; } = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,6 +41,15 @@ namespace AllWaifu
                 UserType = Request.QueryString["userby"];
             }
             LoadTags();
+            if (Request.IsAuthenticated)
+            {
+                ((AllWaifu)Master).user = new UserFull(Membership.GetUser());
+                var role = ((AllWaifu)Master).user.Role;
+                if(role == "Admin" || role == "Creator")
+                {
+                    IsAdmin = true;
+                }
+            }
 
         }
         public void LoadTags()

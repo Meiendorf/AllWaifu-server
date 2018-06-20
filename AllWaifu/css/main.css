@@ -117,12 +117,11 @@ body{
 .dd_menu a
 {
     color: #fff;
-    font-size: 20px;
     display: block;
-	padding: 3px 5px;
-	font-size : 16px;
+	padding: 3px 5px !important;
+	font-size : 16px !important;
 	font-weight : normal;
-    transition: 0.3s;
+	transition: 0.3s;
 }
 .dd_menu span {
     color : #fff !important;
@@ -138,7 +137,26 @@ body{
     transition: 0.3s;
     background-color: #29A4D0;
 }
-
+.help-mobile-arrow
+{
+	float: right;
+	margin-right: 20px;
+	margin-top : 4px;
+	transition: 0.3s;
+}
+.help-mobile-bgc{
+	transition: 0.3s;
+	background-color: #29A4D0;
+	margin-bottom: 5px;
+}
+.rotated {
+	transition: 0.3s;
+    -webkit-transform: rotate(180deg);  /* Chrome, Safari 3.1+ */
+    -moz-transform: rotate(180deg);  /* Firefox 3.5-15 */
+    -ms-transform: rotate(180deg);  /* IE 9 */
+    -o-transform: rotate(180deg);  /* Opera 10.50-12.00 */
+    transform: rotate(180deg);  /* Firefox 16+, IE 10+, Opera 12.10+ */
+}
 .dd_menu
 {
     list-style-type: none;
@@ -152,8 +170,11 @@ body{
     border-color: #29A4D0;
     position: absolute;
     right: 0;
-    top : 36px;
-    display: none;
+    top : 38px;
+	display: none;
+	-webkit-box-shadow: 0px 0px 72px -10px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 72px -10px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 72px -10px rgba(0,0,0,0.75);
 }
 .dd_menu li:last-of-type
 {
@@ -189,6 +210,19 @@ body{
 .notify-list::-webkit-scrollbar-thumb:active{
 	background-color:#bec8d3;
 	border:1px solid #ffffff;
+}
+.noticomment-theme .comment_el{
+    font-size : 12px;
+    grid-template-columns : 50px 1fr;
+}
+.noticomment-theme .comment_additional {
+    font-size : 10px;
+}
+.noticomment-theme .comment_img img{
+    height : 40px;
+    width : 40px;
+    max-height : 40px;
+    max-width : 40px;
 }
 .tippy-tooltip.notify-theme {
 	/* Your styling here. Example: */
@@ -233,6 +267,37 @@ body{
     padding: 5px;
     text-align: center;
 }
+ .notify-count[data-notify]:after {
+	content:attr(data-notify);
+	position:absolute;
+	top:-10px;
+	right:-10px;
+	font-size:.6em;
+	background-color: #63D795;
+	color : #fff;
+	font-family: "RubikLight";
+	width:18px;height:18px;
+	text-align:center;
+	line-height:18px;
+	border-radius:50%;
+	box-shadow:0 0 1px #333;
+ }
+ .notify-count[data-notify=""]:after {
+	content: none;
+	}
+.notify-count
+{
+	position: relative;
+}
+.notify-new
+{
+	position:absolute;
+	padding: 6px;
+	border-radius: 50%;
+	background-color: #63D795;
+	right : 4px;
+	top : 4px;
+}
 .notify-list .notify-el:not(:last-child)
 {
 	border-bottom: 1px #EEEEEE solid;
@@ -243,6 +308,7 @@ body{
 	grid-template-columns: 60px 1fr;
 	grid-template-areas: "nimg ntxt"
 						 "nimg ndat";
+	position: relative;
 }
 .notify-image img{
 	border-radius: 50%;
@@ -260,31 +326,36 @@ body{
 	grid-area: ntxt;
 	font-size : 12.5px;
 }
+.notify-content a{
+    cursor : pointer;
+}
 .notify-date{
 	font-size : 10px;
 	font-family: "RubikLight";
 	grid-area : ndat;
 	margin-top : 5px;
 }
-.user_dropdown_img
-{ 
-    height: 30px;
-    border-radius: 100px;
+.user_dropdown_img {
+    height: 40px;
+    border-radius: 50%;
+    width: 40px;
 }
 .user_dropdown
 {
 	font-family: "RubikLight";
 	font-size : 18px;
 	font-weight: normal;
-    padding: 3px;
     margin : -3px 0px;
     display: inline-block;
     transition: 0.3s;
 }
+.user-dropdown-main
+{
+	transition: 0.3s;
+}
 .user_dropdown:hover
 {
     transition: 0.3s;
-    background-color: #7B52AB;
     cursor: pointer;
 }
 .user_dropdown i, .header_logo_text
@@ -357,13 +428,15 @@ body{
     font-weight: bold;
     font-size : 20px;
 }
-.heaven_dropdown>.user_dropdown
+.user-dropdown-main
 {
-    height : 60px;
-    padding : 17px 13px 0px 3px;
+    height : 58px;
+    padding : 10px 13px 0px 3px;
 }
-.heaven_dropdown>.user_dropdown:hover
+
+.user-dropdown-main:hover
 {
+	transition: 0.3s;
     background-color: #29A4D0;
 }
 .heaven_dropdown i{
@@ -1490,7 +1563,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 }
 .edit_grid .anime_watch
 {
-	font-size: 20px;
+	font-size: 16px;
+    font-weight : normal !important;
     color: #fff;
     font-family: "RubikLight";
 }
@@ -1670,6 +1744,39 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
     width: 30%;
     margin-left: 15px;
 }
+.error_main{
+	margin-top : 10px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-items: center;
+	justify-content: center;
+	height: 100%;
+	background-color: #fff;
+	color : #333;
+	padding: 10px;
+	padding-bottom: 0px;
+	text-align: center;
+	font-family: "RubikLight";
+}
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+.error_main div{
+	
+}
+.error_code 
+{
+	padding: 15px;
+	font-size : 24px;
+	font-family: "RubikLight";
+	color : #29A4D0;
+	font-weight: bold;
+}
 .user_info a:before {
     background-color: #337AB7;
 }
@@ -1704,4 +1811,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
     padding: 6px;
     font-family: "RubikLight";
     text-transform: uppercase;
+}
+.help-trigger
+{
+	position: relative;
+}
+.help-menu
+{
+	top : 56px;
+	left : 0px;
+	padding : 0px 3px !important;
+}
+.help-menu li
+{
+	display: block;
+}
+.help-menu li:last-of-type
+{
+	border-width: 0 !important;
 }

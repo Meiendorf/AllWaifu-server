@@ -18,7 +18,7 @@ namespace AllWaifu
             Page.Header.DataBind();
             if (!Request.IsAuthenticated)
             {
-                Response.Redirect("/profile");
+                Response.Redirect("/login");
             }
             
             Master.user = new UserFull(Membership.GetUser());

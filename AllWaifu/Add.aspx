@@ -1,9 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AllWaifu.Master" AutoEventWireup="true" CodeBehind="Add.aspx.cs" Inherits="AllWaifu.Add_Waif" %>
 <%@ MasterType  virtualPath="~/AllWaifu.master"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContentPlaceholder" runat="server">
-    <link rel="stylesheet" href="/css/search.css" />
-    <link rel="stylesheet" href="/css/anime.css?2" />
-    <link rel="stylesheet" href="/css/add_waif.css" />
+    <link rel="stylesheet" href="/css/search.css?2" />
+    <link rel="stylesheet" href="/css/anime.css?9" />
+    <link rel="stylesheet" href="/css/add_waif.css?2" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="InSlideoutListPlaceHolder" runat="server">
 </asp:Content>
