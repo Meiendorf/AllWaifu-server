@@ -440,7 +440,7 @@ namespace AllWaifu
                     user.LoadById(userFrom);
 
                     var notifyContent = String.Format("Пользователь <a href=\"/profile/{0}\">{0}</a> " +
-                                        "ответил на ваш <a onmouseover=\"notifyCommentHover('{1}',{2}, {3},this);\">" +
+                                        "ответил на ваш <a onmouseover=\"notifyCommentHover('{1}',{2}, '{3}',this);\">" +
                                         "комментарий</a>", user.Login, type, postedId, id);
                     Notification.AddNew(userToId, notifyContent, false, user.Image, "/profile/"+user.Login);
                 }

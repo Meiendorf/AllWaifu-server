@@ -1723,12 +1723,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
     flex-direction: column;
     align-items: center;
     font-weight: normal;
-    color: #187DCF;
+    color: #333;
+    padding-bottom : 15px;
 }
 
-.empty_block > .waif_cont_title {
-    margin: auto;
-    color: cornflowerblue;
+.empty_block > .anime_desc_title {
+    font-size : 16px;
 }
 .error_block {
     background-color: #fff;

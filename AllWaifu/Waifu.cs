@@ -946,17 +946,12 @@ namespace AllWaifu
 
         public void Roles_Init()
         {
-            
             var roles = Roles.GetRolesForUser(Login);
             if (roles.Length > 0)
             {
-                Role = Roles.GetRolesForUser(Login)[0];
+                Role = roles[0];
             }
-            
-            if (String.IsNullOrEmpty(Role))
-            {
-                Role = "User";
-            }
+
             switch (Role)
             {
                 case "User":

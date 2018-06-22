@@ -5,14 +5,14 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>AllWaifu</title>
-    <link rel="shortcut icon" href="/images/favicon.png" />
+    <link rel="shortcut icon" href="/favicon.png" />
     <meta name="description" content="" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/libs/bootstrap/bootstrap-grid-3.3.1.min.css" />
     <link rel="stylesheet" href="/libs/jqueryui/jquery-ui.min.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
-    <link rel="stylesheet" href="/css/main.css?20" />
+    <link rel="stylesheet" href="/css/main.css?22" />
     <asp:ContentPlaceHolder ID="HeadContentPlaceholder" runat="server">
     </asp:ContentPlaceHolder>
     <link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.min.css" />
@@ -236,7 +236,7 @@
         </main>
         <script src="/libs/jquery/jquery-1.11.1.min.js"></script>
         <script src="https://unpkg.com/tippy.js@2.5.2/dist/tippy.all.min.js"></script>
-        <script src="libs/accordion/jquery.accordion.js"></script>
+        <script src="/libs/accordion/jquery.accordion.js"></script>
         <script src="/libs/jqueryui/jquery-ui.min.js"></script>
         <script src="/libs/owl-carousel/owl.carousel.min.js"></script>
         <script src="/libs/landing-nav/navigation.js"></script>

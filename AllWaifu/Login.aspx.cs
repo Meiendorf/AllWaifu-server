@@ -123,7 +123,10 @@ namespace AllWaifu
                 Notification.AddNew(Id, "Благодарим за регистрацию на нашем сайте!", false, "/images/hanekawa.png");
                 command.Parameters.AddWithValue("Id", Id);
                 command.Parameters.AddWithValue("Name", login);
-                command.Parameters.AddWithValue("Image", image ?? DBNull.Value);
+                if (image != null)
+                {
+                    command.Parameters.AddWithValue("Image", image);
+                }
                 command.Parameters.AddWithValue("Url", url ?? DBNull.Value);
                 command.Parameters.AddWithValue("RealName", name ?? DBNull.Value);
         
