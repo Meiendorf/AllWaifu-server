@@ -218,6 +218,12 @@
                        <div class="anime_watch">
                            <input type="submit" class="field_add_but" style="background-color: #63D795"  onclick="if (checkFormValidation()) { acceptWaifu(); }" runat="server" value="Подтвердить" id="_Admin_Button" onserverclick="ConfirmAdmin_ServerClick" />
                         </div>
+                    <%}%>
+                    <% else if ((((AllWaifu.AllWaifu)Master).user.Role == "Admin" || ((AllWaifu.AllWaifu)Master).user.Role == "Creator") && (Confirmed == "1"))
+                    { %>
+                       <div class="anime_watch">
+                           <input type="submit" class="field_add_but" style="background-color: #FF6666"  onclick="deleteWaifuClick(<%=RenWaif.Id%>);" runat="server" value="Удалить" id="DeleteWaifuBut"/>
+                        </div>
                     <%}
                     else
                     { %>
@@ -253,6 +259,7 @@
     <script src="https://widget.cloudinary.com/global/all.js" type="text/javascript"></script>
     <script type="text/javascript">
         var userName = "<%=((AllWaifu.AllWaifu)Master).user.Login%>";
+        var userToken = "<%=((AllWaifu.AllWaifu)Master).user.Id%>";
        
         var rofl = <% if (SerializedWaif == "")
         { Response.Write(String.Format("\"{0}\"", SerializedWaif)); }

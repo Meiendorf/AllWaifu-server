@@ -14,7 +14,7 @@ namespace AllWaifu
     public partial class Add_Waif : System.Web.UI.Page
     {
         public Waifu RenWaif = new Waifu();
-        public string Confirmed = "1";
+        public string Confirmed = "-1";
         public string SerializedWaif = "";
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,6 +27,11 @@ namespace AllWaifu
             {
                 ((AllWaifu)Master).user = new UserFull(Membership.GetUser());
 
+                if(!(Master.user.Role == "Admin" || Master.user.Role == "Creator"))
+                {
+                    Response.Redirect("/error/401");
+                    return;
+                }
                 bool res = RenWaif.ReadFromBase(Convert.ToInt32(RouteData.Values["id"]));
                 if (!res)
                 {

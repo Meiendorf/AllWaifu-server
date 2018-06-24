@@ -17,7 +17,7 @@ function sendPostButton() {
     result.date = new Date().toLocaleDateString();
     result.author = userName;
     //console.log(result);
-    AllWaifu.AjaxHelper.AddNewsToBase(result,
+    AllWaifu.AjaxHelper.AddNewsToBase(userToken, result,
         function (result) { }, function (err) { console.log(err) });
 
 }
@@ -25,7 +25,7 @@ function deletePostButton() {
     var post = $(this).parent().parent();
     var id = post.find(".news_id")[0].value;
     post[0].remove();
-    AllWaifu.AjaxHelper.DeleteNews(id, function (result) { }, function (err) { });
+    AllWaifu.AjaxHelper.DeleteNews(userToken, id, function (result) { }, function (err) { });
 }
 
 $(document).ready(function () {  

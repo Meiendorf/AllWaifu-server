@@ -185,13 +185,13 @@
                 if (fav_class_add == faO) {
                     fav_class_add = fa;
                     fav_class_del = faO;
-                    AllWaifu.AjaxHelper.AddToFavorites(waifuId, userName,
+                    AllWaifu.AjaxHelper.AddToFavorites(userId, waifuId, userName,
                         function (result) { }, function (err) { console.log(err) });
                 }
                 else {
                     fav_class_add = faO;
                     fav_class_del = fa;
-                    AllWaifu.AjaxHelper.DeleteFromFavorites(waifuId, userName,
+                    AllWaifu.AjaxHelper.DeleteFromFavorites(userId, waifuId, userName,
                         function (result) { }, function (err) { console.log(err) });
                 }
                 $(this).removeClass(fav_class_del);

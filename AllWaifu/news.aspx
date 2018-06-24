@@ -87,6 +87,7 @@
     <script src="/js/news.js??<%=DateTime.Now.Ticks.ToString()%>"></script>
     <script type="text/javascript">
         userName = "<%=UserName%>";
+        userToken = "<%=UserToken%>";
         VK.Widgets.Group("vk_groups", { mode: 4, width: "auto", wide: 1, height: "400" }, 155417759);
 	</script>
 </asp:Content>

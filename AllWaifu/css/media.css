@@ -491,9 +491,11 @@
 }
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
-    .waif_context .main_grid_anime
-    {
-        grid-template-columns : 1fr;
+    .comment_complain{
+        display : none !important;
+    }
+    .waif_context .main_grid_anime {
+        grid-template-columns: 1fr;
         grid-template-areas: "anime_el" "anime_top";
     }
     .waif_context .anime_top

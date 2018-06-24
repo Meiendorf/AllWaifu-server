@@ -43,8 +43,8 @@ $(document).ready(function () {
 function AddUrlToCache(url) {
     var surl = url.slice(url.lastIndexOf("/") + 1, -4);
     //console.log(surl);
-    AllWaifu.AjaxHelper.AddUrlToCache(surl,
-        function (result) {/* console.log(result) */}, function (error) {/*console.log(error)*/ });
+    AllWaifu.AjaxHelper.AddUrlToCache(userToken, surl,
+        function (result) {/* console.log(result) */}, function (error) {console.log(error) });
 }
 function generateSignature(callback, params) {
     //console.log(params);
@@ -107,7 +107,7 @@ function waifFacade() {
 }
 function sendWaifToServer() {
     if (waif != null) {
-        AllWaifu.AjaxHelper.AddWaifToBase(waif,
+        AllWaifu.AjaxHelper.AddWaifToBase(userToken, waif,
             function (result) {
                 console.log(result);
             },
@@ -299,4 +299,9 @@ function deleteButtonClick(){
             deleteGrandGrandFather($(this));
         }
     }
+}
+function deleteWaifuClick(id) {
+    AllWaifu.AjaxHelper.DeleteWaifu(userToken, id,
+        function (result) { }, function (err) { console.log(err) });
+    /*$(location).attr('href', '/main');*/
 }

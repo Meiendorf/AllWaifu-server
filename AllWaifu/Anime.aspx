@@ -180,7 +180,8 @@
     <script src="/bower_components/cloudinary-jquery/cloudinary-jquery.js" type="text/javascript"></script>
     <script src="https://widget.cloudinary.com/global/all.js" type="text/javascript"></script>
     <% if(IsAdmin){%>
-    <script src="/js/anime.js"></script>
+        userToken = "<%=UserId%>";
+        <script src="/js/anime.js"></script>
     <%} %>
     <script src="/js/profile_comments.js?<%=DateTime.Now.Ticks.ToString() %>"></script>
     <script src="/js/vk_openapi.js"></script>

@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AllWaifu.Master" AutoEventWireup="true" CodeBehind="Edit.aspx.cs" Inherits="AllWaifu.Edit_Page" %>
 <%@ MasterType  virtualPath="~/AllWaifu.master"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContentPlaceholder" runat="server">
-    <link rel="stylesheet" href="/css/anime.css" 
+    <link rel="stylesheet" href="/css/anime.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="OwlPlaceHolder" runat="server">
 </asp:Content>

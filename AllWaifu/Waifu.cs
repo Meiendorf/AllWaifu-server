@@ -387,6 +387,26 @@ namespace AllWaifu
                 cmd.Dispose();
             }
         }
+        public void DeleteWaifu()
+        {
+            if(Id == -1)
+            {
+                return;
+            }
+            using(var _connection = new SqlConnection(Global.WaifString))
+            {
+                _connection.Open();
+                SimplyDelete(_connection, "WaifuTagsList");
+                SimplyDelete(_connection, "Favorites");
+                SimplyDelete(_connection, "WaifuComments");
+                using (var cmd = new SqlCommand("DELETE FROM Waifu WHERE Id=@Id", _connection))
+                {
+                    cmd.Parameters.AddWithValue("Id", Id);
+                    cmd.ExecuteNonQuery();
+                }
+                Id = -1;
+            }
+        }
         public string DescToXmlDocument()
         {
             XmlDocument xDoc = new XmlDocument();
@@ -427,6 +447,15 @@ namespace AllWaifu
             foreach (XmlNode xChapter in xDoc.DocumentElement)
             {
                 Chapters.Add(new DescriptionChapter(xChapter));
+            }
+        }
+
+        private void SimplyDelete(SqlConnection _connection, string table)
+        {
+            using (var cmd = new SqlCommand("DELETE FROM " + table + " WHERE WaifuId=@Id", _connection))
+            {
+                cmd.Parameters.AddWithValue("Id", Id);
+                cmd.ExecuteNonQuery();
             }
         }
     }

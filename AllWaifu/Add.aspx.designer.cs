@@ -31,6 +31,15 @@ namespace AllWaifu {
         protected global::System.Web.UI.HtmlControls.HtmlInputSubmit _Admin_Button;
         
         /// <summary>
+        /// DeleteWaifuBut элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputSubmit DeleteWaifuBut;
+        
+        /// <summary>
         /// _Confirm_Button элемент управления.
         /// </summary>
         /// <remarks>

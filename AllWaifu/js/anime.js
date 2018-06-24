@@ -53,7 +53,7 @@ function generateSignature(callback, params) {
 function AddUrlToCache(url) {
     var surl = url.slice(url.lastIndexOf("/") + 1, -4);
     //console.log(surl);
-    AllWaifu.AjaxHelper.AddUrlToCache(surl,
+    AllWaifu.AjaxHelper.AddUrlToCache(userToken, surl,
         function (result) {/* console.log(result) */ }, function (error) {/*console.log(error)*/ });
 }
 
@@ -96,7 +96,7 @@ function SendAnime() {
         anime.image = $(".profile_popup_thumb img")[0].src;
         anime.url = $("#AnimeUrl")[0].value;
         anime.description = $("#AnimeDesc")[0].value;
-        AllWaifu.AjaxHelper.AddAnimeToBase(anime,
+        AllWaifu.AjaxHelper.AddAnimeToBase(userToken, anime,
             function (res) { console.log(res) }, function (err) { console.log(err) }
         );
         $(".profile_anime_cont").fadeOut();

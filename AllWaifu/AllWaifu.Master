@@ -17,7 +17,7 @@
     </asp:ContentPlaceHolder>
     <link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/libs/fancybox/jquery.fancybox.css" />
-    <link rel="stylesheet" href="/css/media.css" />
+    <link rel="stylesheet" href="/css/media.css?2" />
     <link rel="stylesheet" href="/css/pagination.css" />
 </head>
 <body>
@@ -152,7 +152,7 @@
                                         Response.Write(user.Login);
                                     }%>
                             </div>
-                            <img src="<%=user.Image %>" class="user_dropdown_img">
+                            <img src="<%=user.Image %>" class="user_dropdown_img" alt="/images/none.png">
                             <i class="fa fa-angle-down" aria-hidden="true"></i>
                         </div>
                         <ul class="dd_menu cl-effect-5 main-dd-menu">
@@ -246,6 +246,7 @@
         <%if ((user != null) && (Request.IsAuthenticated))
                 { %>
         <script>
+                userId = "<%=user.Id%>";
                 function isElInView(element, fullyInView) {
                     var pageTop = $(window).scrollTop();
                     var pageBottom = pageTop + $(window).height();
@@ -266,7 +267,7 @@
                                 return;
                             }
                             var id = el.id;
-                            AllWaifu.AjaxHelper.ReadNotification(id,
+                            AllWaifu.AjaxHelper.ReadNotification(userId, id,
                                 function (result) { },
                                 function (err) { console.log(err) },
                             );

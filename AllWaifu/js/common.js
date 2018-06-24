@@ -220,6 +220,7 @@ function notifyCommentFillTemplate(el, cloneble) {
     result.find(".comment_name").find("a")[0].innerText = el["From"]["Login"];
     result.find(".comment_name").find("a")[0].href = "/profile/" + el["From"]["Login"];
     result.find(".comment_img").find("img")[0].src = el["From"]["Image"];
+    result.find(".comment_img").find("img")[0].alt = "/images/none.png"
     result.find(".comment_img").find("a")[0].href = "/profile/" + el["From"]["Login"];
     result.find(".comment_date")[0].innerText = el["Date"];
     result.find(".comment_text")[0].innerHTML = el["Text"];

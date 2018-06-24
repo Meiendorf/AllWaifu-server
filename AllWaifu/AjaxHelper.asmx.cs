@@ -89,16 +89,30 @@ namespace AllWaifu
             return cloudinary.Api.SignParameters(parameters);
         }
         [WebMethod]
-        public void ChangeImage(string login, string src)
+        public void ChangeImage(string userToken, string login, string src)
         {
+            if(!IsCorrectUser(userToken, login))
+            {
+                return;
+            }
             var cmd = new SqlCommand("UPDATE Users SET Image=@Img WHERE Name=@Login");
-            cmd.Parameters.AddWithValue("Img", (object)src ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("Img", (object)src ?? "/images/none.png");
             cmd.Parameters.AddWithValue("Login", login);
             UserFull.Simple_Change(cmd);
         }
         [WebMethod]
-        public void AddWaifToBase(Dictionary<string, object> waif)
+        public void AddWaifToBase(string userToken, Dictionary<string, object> waif)
         {
+            var user =  Membership.GetUser(new Guid(userToken));
+            if (user == null)
+            {
+                return;
+            }
+            if(user.UserName != waif["author"].ToString())
+            {
+                return;
+            }
+            
             //Анти дудос, в продакшене раскоменть
             /*var cookie = Context.Request.Cookies["WL"];
             if(cookie != null)
@@ -127,8 +141,24 @@ namespace AllWaifu
             Context.Response.Cookies.Add(nCookie);*/
         }
         [WebMethod]
-        public void AddAnimeToBase(Dictionary<string, object> anime)
+        public void DeleteWaifu(string userToken, int waifuId)
         {
+            if (IsAdmin(userToken))
+            {
+                var waif = new Waifu();
+                if (waif.ReadFromBase(waifuId))
+                {
+                    waif.DeleteWaifu();
+                }
+            }
+        }
+        [WebMethod]
+        public void AddAnimeToBase(string userToken, Dictionary<string, object> anime)
+        {
+            if (!IsAdmin(userToken))
+            {
+                return;
+            }
             //Анти дудос, в продакшене раскоменть
             /*var cookie = Context.Request.Cookies["WL"];
             if(cookie != null)
@@ -151,15 +181,23 @@ namespace AllWaifu
             Context.Response.Cookies.Add(nCookie);*/
         }
         [WebMethod]
-        public void AddNewsToBase(Dictionary<string, object> news)
+        public void AddNewsToBase(string userToken, Dictionary<string, object> news)
         {
+            if (!IsAdmin(userToken))
+            {
+                return;
+            }
             var post = new NewsFull();
             post.NewsFromJs(news);
             post.SendToBase();
         }
         [WebMethod]
-        public void DeleteNews(int id)
+        public void DeleteNews(string userToken, int id)
         {
+            if (!IsAdmin(userToken))
+            {
+                return;
+            }
             try
             {
                 NewsFull.DeleteFromBase(id);
@@ -193,8 +231,12 @@ namespace AllWaifu
             }
         }
         [WebMethod]
-        public void AddUrlToCache(string url)
+        public void AddUrlToCache(string userToken, string url)
         {
+            if (!IsUser(userToken))
+            {
+                return;
+            }
             _connection = new SqlConnection(Global.WaifString);
             using (_connection)
             {
@@ -395,6 +437,10 @@ namespace AllWaifu
         [WebMethod]
         public bool PostComment(string text, string type, string userFrom, string id)
         {
+            if (!IsUser(userFrom))
+            {
+                return false;
+            }
             var table = ReaderHelper.GetCommentsTable(type);
             if(table == "")
             {
@@ -448,9 +494,13 @@ namespace AllWaifu
             return true;
         }
         [WebMethod]
-        public void AddToFavorites(int waifuId, string userName)
+        public void AddToFavorites(string userToken, int waifuId, string userName)
         {
-            using(var _connection = new SqlConnection(Global.WaifString))
+            if (!IsCorrectUser(userToken, userName))
+            {
+                return;
+            }
+            using (var _connection = new SqlConnection(Global.WaifString))
             {
                 _connection.Open();
                 using (var cmd = new SqlCommand("INSERT INTO Favorites VALUES((SELECT Id FROM Users WHERE Name=@Name), @WId)", _connection))
@@ -511,8 +561,12 @@ namespace AllWaifu
             }
         }
         [WebMethod]
-        public void DeleteFromFavorites(int waifuId, string userName)
+        public void DeleteFromFavorites(string userToken, int waifuId, string userName)
         {
+            if (!IsCorrectUser(userToken, userName))
+            {
+                return;
+            }
             using (var _connection = new SqlConnection(Global.WaifString))
             {
                 _connection.Open();
@@ -525,15 +579,31 @@ namespace AllWaifu
             }
         }
         [WebMethod]
-        public void ReadNotification(int id)
+        public void ReadNotification(string userToken, int id)
         {
             using (var _connection = new SqlConnection(Global.WaifString))
             {
                 _connection.Open();
-                using(var cmd = new SqlCommand("UPDATE Notifications SET IsRead = 1 WHERE Id=@Id", _connection))
+                bool canRead = false;
+                using(var cmd = new SqlCommand("SELECT UserId FROM Notifications WHERE Id=@Id", _connection))
                 {
                     cmd.Parameters.AddWithValue("Id", id);
-                    cmd.ExecuteNonQuery();
+                    var userId = cmd.ExecuteScalar();
+                    if(userId != null)
+                    {
+                        if(userId.ToString() == userToken)
+                        {
+                            canRead = true;
+                        }
+                    }
+                }
+                if (canRead)
+                {
+                    using (var cmd = new SqlCommand("UPDATE Notifications SET IsRead = 1 WHERE Id=@Id", _connection))
+                    {
+                        cmd.Parameters.AddWithValue("Id", id);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
         }
@@ -621,7 +691,7 @@ namespace AllWaifu
         [WebMethod]
         public void ChangeReputation(string userToken, string userTo, int type)
         {
-            var user = Membership.GetUser(userToken as object);
+            var user =  Membership.GetUser(new Guid(userToken));
             var userFor = Membership.GetUser(userTo);
             if (user == null || userFor == null)
             {
@@ -685,7 +755,7 @@ namespace AllWaifu
         [WebMethod]
         public void ChangeRole(string userToken, string userTo, string role)
         {
-            var user = Membership.GetUser(userToken as object);
+            var user =  Membership.GetUser(new Guid(userToken));
             var userFor = Membership.GetUser(userTo);
             if(user == null || userFor == null || 
                 !Roles.RoleExists(role) || role.ToLower()=="creator")
@@ -723,5 +793,77 @@ namespace AllWaifu
             }
             Notification.AddNew(userFor.ProviderUserKey.ToString(), message, false, "/images/notify.png");
         }
+        [WebMethod]
+        public void ClearImages(string userToken)
+        {
+            var baseImages = new List<string>();
+            var cloudImages = new List<string>();
+            if (IsAdmin(userToken))
+            {
+                using (var _connection = new SqlConnection(Global.WaifString))
+                {
+                    _connection.Open();
+                    using(var cmd = new SqlCommand("SELECT Image FROM Users UNION SELECT Image FROM " +
+                                                   "Waifu UNION SELECT Image FROM Anime", _connection))
+                    {
+                        using(var rd = cmd.ExecuteReader())
+                        {
+                            while (rd.Read())
+                            {
+                                baseImages.Add(rd["Image"].ToString());
+                            }
+                        }
+                    }
+                }
+                Account shin = new Account(
+               "shingami322",
+               "245454634769229",
+               "rhdYXDZ5jXghrGWi3U2YZQPVPBg"
+               );
+
+                Cloudinary cloudinary = new Cloudinary(shin);
+                var cloudResources = cloudinary.ListResources();
+                cloudImages = cloudResources.Resources.Where(x => !baseImages.Contains(x.Uri.ToString())).Select(x => x.PublicId).ToList();
+                cloudinary.DeleteResources(cloudImages.ToArray());
+            }
+        }
+        public bool IsUser(string userToken)
+        {
+            var user = Membership.GetUser(new Guid(userToken));
+            if(user == null)
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool IsCorrectUser(string userToken, string login)
+        {
+            var user = Membership.GetUser(new Guid(userToken));
+            if (user == null)
+            {
+                return false;
+            }
+            if (user.UserName != login)
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool IsAdmin(string userToken)
+        {
+            var user =  Membership.GetUser(new Guid(userToken));
+            if (user == null)
+            {
+                return false;
+            }
+            if (!(Roles.IsUserInRole(user.UserName, "Admin") ||
+               Roles.IsUserInRole(user.UserName, "Creator")))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        
     }
 }

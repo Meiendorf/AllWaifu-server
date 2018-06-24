@@ -50,7 +50,7 @@ function generateSignature(callback, params) {
 function AddUrlToCache(url) {
     var surl = url.slice(url.lastIndexOf("/") + 1, -4);
     //console.log(surl);
-    AllWaifu.AjaxHelper.AddUrlToCache(surl,
+    AllWaifu.AjaxHelper.AddUrlToCache(userId, surl,
         function (result) {/* console.log(result) */ }, function (error) {/*console.log(error)*/ });
 }
 

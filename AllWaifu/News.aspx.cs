@@ -12,7 +12,7 @@ namespace AllWaifu
     {
         public bool IsAdmin { get; set; } = false;
         public string UserName { get; set; } = "";
-
+        public string UserToken { get; set; } = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             ((AllWaifu)Master).user = new UserFull(Membership.GetUser());
@@ -22,6 +22,7 @@ namespace AllWaifu
             {
                 IsAdmin = true;
                 UserName = ((AllWaifu)Master).user.Login;
+                UserToken = ((AllWaifu)Master).user.Id;
             }
         }
     }
